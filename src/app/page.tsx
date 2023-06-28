@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
+    <main className="flex min-h-screen flex-col items-center p-8">
       <div className="relative mb-16">
         <Image
           className="relative dark:drop-shadow"
@@ -19,8 +19,6 @@ export default function Home() {
         <a
           href="/calendar"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
             Events{' '}
@@ -35,8 +33,6 @@ export default function Home() {
 
         <a
           href="https://twitch.tv/alaskagamers" className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
             Stream{' '}
@@ -51,8 +47,6 @@ export default function Home() {
 
         <a
           href="https://www.youtube.com/alaskagamers" className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
             Videos{' '}
@@ -68,8 +62,6 @@ export default function Home() {
 
         <a
           href="https://www.facebook.com/groups/AKGFGC/" className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
             Facebook{' '}
@@ -85,8 +77,6 @@ export default function Home() {
         <a
           href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQz3EmwZjw3en822pIzMlbMeo8OC-TqrnVAgt2MIGvxWSkHuaur95R6CHPAg5qmQmOW6qsh24wl7IUk/pubhtml"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
             Standings{' '}
