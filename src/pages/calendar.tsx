@@ -1,6 +1,7 @@
 import { Calendar } from 'fullcalendar';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import * as z from 'zod';
 
@@ -73,6 +74,7 @@ export default function EventsCalendar() {
 
   return (
     <div className="p-2 sm:p-8">
+      <Link href="/">
       <Image
         className="relative dark:drop-shadow"
         src="/akgamers-logo-pngcmyk.png"
@@ -81,6 +83,7 @@ export default function EventsCalendar() {
         height={50}
         priority
       />
+      </Link>
       <div ref={calendarRef}>Loading Calendar...</div>
     </div>
   );
