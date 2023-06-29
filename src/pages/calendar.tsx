@@ -1,3 +1,4 @@
+import HomeLogo from '@/components/HomeLogo';
 import { Calendar } from 'fullcalendar';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import Image from 'next/image';
@@ -73,18 +74,11 @@ export default function EventsCalendar() {
   }, []);
 
   return (
-    <div className="p-2 sm:p-8">
+    <main className="flex min-h-screen flex-col p-2">
       <Link href="/">
-      <Image
-        className="relative dark:drop-shadow"
-        src="/akgamers-logo-pngcmyk.png"
-        alt="AKGamers"
-        width={200}
-        height={50}
-        priority
-      />
+        <HomeLogo />
       </Link>
       <div ref={calendarRef}>Loading Calendar...</div>
-    </div>
+    </main>
   );
 }
