@@ -32,30 +32,32 @@ function validateEvent(event: unknown): BasicEvent | null {
   }
 }
 
-export default function EventsCalendar() {
+export async function getServerSideProps() {
+  const doc = new GoogleSpreadsheet(googleSheetId, { apiKey });
+  await doc.loadInfo();
+
+  const sheet = doc.sheetsByIndex[0];
+  const rows = (await sheet.getRows()).map((row) => row.toObject());
+  const mappedRows: BasicEvent[] = rows.map(({ date, title, url }) => ({
+    title: title,
+    start: date,
+    url: url ?? '',
+    borderColor: url ? '#F7B316' : '#072944',
+  }));
+  const validatedEvents = mappedRows.map(validateEvent).filter((event) => event !== null);
+
+  return {
+    props: {
+      events: validatedEvents,
+    },
+  };
+}
+
+export default function EventsCalendar(props: { events: BasicEvent[] }) {
   const calendarRef = useRef(null);
 
   useEffect(() => {
-    async function loadCalendar() {
-      const doc = new GoogleSpreadsheet(
-        googleSheetId,
-        {
-          apiKey,
-        });
-      await doc.loadInfo();
-
-      const sheet = doc.sheetsByIndex[0];
-      const rows = (await sheet.getRows()).map((row) => row.toObject());
-      const mappedRows: BasicEvent[] = rows.map(({ date, title, url }) => ({
-        title: title,
-        start: date,
-        url: url ?? '',
-        borderColor: url ? '#F7B316' : '#072944',
-      }));
-      const validatedEvents = mappedRows.map(validateEvent).filter((event) => event !== null);
-      console.log({ mappedRows });
-      console.log({ validatedEvents });
-
+    function loadCalendar() {
       const calendarEl = calendarRef.current;
       if (calendarEl) {
         (calendarEl as HTMLDivElement).innerHTML = '';
@@ -63,7 +65,7 @@ export default function EventsCalendar() {
           timeZone: 'America/Anchorage',
           initialView: 'dayGridMonth',
           height: 'auto',
-          events: validatedEvents as any[],
+          events: props?.events ?? [] as any[],
         });
         calendar.render();
       }
