@@ -4,13 +4,13 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center p-8">
-      <div className="relative mb-16">
+      <div className="relative mb-8">
         <Image
           className="relative dark:drop-shadow"
           src="/akgamers-logo-pngcmyk.png"
           alt="AKGamers"
-          width={180}
-          height={37}
+          width={200}
+          height={50}
           priority
         />
       </div>

@@ -23,12 +23,17 @@ body {
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
+.fc-daygrid-block-event,
 .fc-event-time,
 .fc-event-title {
-  padding: 0 1px;
+  padding: 4px;
   white-space: normal;
 }
 
 .fc-col-header-cell {
-  background: rgb(var(--background-start-rgb));
+  background: #072944;
+}
+
+.fc-h-event {
+  background-color: #483C8A;
 }
