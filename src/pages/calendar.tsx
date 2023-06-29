@@ -74,7 +74,7 @@ export default function EventsCalendar() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col p-2">
+    <main className="flex min-h-screen flex-col p-2 sm:p-8">
       <Link href="/">
         <HomeLogo />
       </Link>
