@@ -1,7 +1,6 @@
 import HomeLogo from "@/components/HomeLogo";
 import { Calendar } from "fullcalendar";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import * as z from "zod";
@@ -14,14 +13,12 @@ interface BasicEvent {
   title: string;
   start: string;
   url?: string;
-  borderColor?: string;
 }
 
 const eventSchema = z.object({
   title: z.string().min(1),
   start: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   url: z.string().optional(),
-  borderColor: z.string().optional(),
 });
 
 function validateEvent(event: unknown): BasicEvent | null {
@@ -50,13 +47,12 @@ export default function EventsCalendar() {
         title: title,
         start: date,
         url: url ?? "",
-        borderColor: url ? "#F7B316" : "#072944",
       }));
       const validatedEvents = mappedRows
         .map(validateEvent)
         .filter((event) => event !== null);
-      console.log({ mappedRows });
-      console.log({ validatedEvents });
+      // console.log({ mappedRows });
+      // console.log({ validatedEvents });
 
       const calendarEl = calendarRef.current;
       if (calendarEl) {

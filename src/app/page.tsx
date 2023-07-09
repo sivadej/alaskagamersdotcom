@@ -113,17 +113,14 @@ export default function Home() {
         </p>
         <div>
           {brackets.map((bracket: any) => {
-            const {
-              name,
-              started_at,
-              id,
-              full_challonge_url,
-              sign_up_url,
-            } = bracket ?? {};
+            const { name, started_at, id, full_challonge_url, sign_up_url } =
+              bracket ?? {};
             const signUpUrl = sign_up_url && !started_at ? sign_up_url : null;
-            return <div key={id} className="mt-3 text-blue-300 underline text-lg">
-              <a href={signUpUrl ?? full_challonge_url}>{name}</a>
-            </div>;
+            return (
+              <div key={id} className="mt-3 text-blue-300 underline text-lg">
+                <a href={signUpUrl ?? full_challonge_url}>{name}</a>
+              </div>
+            );
           })}
         </div>
       </div>
