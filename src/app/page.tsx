@@ -109,7 +109,7 @@ export default function Home() {
       <div className="group text-center rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30">
         <h2 className={`mb-1 text-2xl font-semibold`}>Latest Brackets</h2>
         <p className={`m-0 text-sm opacity-50`}>
-          Retrieved just now from AKG's Challonge page:
+          Retrieved just now from our Challonge page:
         </p>
         <div>
           {brackets.map((bracket: any) => {
