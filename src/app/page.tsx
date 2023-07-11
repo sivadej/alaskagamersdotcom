@@ -6,12 +6,14 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [brackets, setBrackets] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
     async function fetchBrackets() {
       const response = await fetch("/api/latest-brackets");
       const data = await response.json();
       setBrackets(data);
+      setDataLoaded(true);
     }
 
     fetchBrackets();
@@ -109,7 +111,7 @@ export default function Home() {
       <div className="group text-center rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30">
         <h2 className={`mb-1 text-2xl font-semibold`}>Latest Brackets</h2>
         <p className={`m-0 text-sm opacity-50`}>
-          Retrieved just now from our Challonge page:
+          {dataLoaded ? "Retrieved just now from Challonge:" : "Loading recent tournaments..."}
         </p>
         <div>
           {brackets.map((bracket: any) => {
