@@ -3,19 +3,18 @@ const apiKey = process.env.CHALLONGE_API_KEY ?? "";
 
 export default async function handler(req, res) {
   const today = new Date();
-  const ninetyDaysAgo = new Date(today.setDate(today.getDate() - 90));
+  const ninetyDaysAgo = new Date(today.setDate(today.getDate() - 30));
   const createdAfterDate = ninetyDaysAgo.toISOString().slice(0, 10);
 
-  const response = await fetch(
-    `https://api.challonge.com/v1/tournaments.json?api_key=${apiKey}&state=all&subdomain=akg&created_after=${createdAfterDate}`
-  );
+  const fetchStr = `https://api.challonge.com/v1/tournaments.json?api_key=${apiKey}&state=all&subdomain=akg&created_after=${createdAfterDate}`;
+  const response = await fetch(fetchStr);
   const data = await response.json();
 
   if (!data || !Array.isArray(data))
     return res.status(400).json({ message: "Not found" });
 
   const ret = [];
-  for (let i = 0; i < LIST_LIMIT; i++) {
+  for (let i = 0; i < data.length; i++) {
     const { tournament } = data[i] ?? {};
     if (!tournament) break;
     const {
@@ -37,7 +36,7 @@ export default async function handler(req, res) {
       sign_up_url,
     });
   }
+  ret.sort((a, b) => b.id - a.id);
 
   res.status(200).json(ret);
-  //res.status(200).json(data);
 }
