@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: "Not found" });
 
   const ret = [];
-  for (let i = 0; i < LIST_LIMIT; i++) {
+  for (let i = data.length - LIST_LIMIT; i < data.length; i++) {
     const { tournament } = data[i] ?? {};
     if (!tournament) break;
     const {
