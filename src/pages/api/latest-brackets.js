@@ -1,4 +1,4 @@
-const LIST_LIMIT = 5;
+const LIST_LIMIT = 10;
 const apiKey = process.env.CHALLONGE_API_KEY ?? "";
 
 export default async function handler(req, res) {
