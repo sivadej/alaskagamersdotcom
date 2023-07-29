@@ -38,5 +38,5 @@ export default async function handler(req, res) {
   }
   ret.sort((a, b) => b.id - a.id);
 
-  res.status(200).json(ret);
+  res.status(200).json(ret.slice(0, LIST_LIMIT));
 }
