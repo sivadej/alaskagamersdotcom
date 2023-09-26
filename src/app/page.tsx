@@ -91,7 +91,7 @@ export default function Home() {
             </span>
           </h2>
         </a>
-        <hr className="my-8 border-gray-100 opacity-30" />
+        {/* <hr className="my-8 border-gray-100 opacity-30" />
         <a
           href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQz3EmwZjw3en822pIzMlbMeo8OC-TqrnVAgt2MIGvxWSkHuaur95R6CHPAg5qmQmOW6qsh24wl7IUk/pubhtml"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
@@ -105,7 +105,7 @@ export default function Home() {
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             Ranbats rankings.
           </p>
-        </a>
+        </a> */}
         <hr className="my-8 border-gray-100 opacity-30" />
       </div>
       <div className="group text-center rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30">
