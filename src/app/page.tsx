@@ -57,19 +57,7 @@ export default function Home() {
         </a>
 
         <a
-          href="https://www.youtube.com/alaskagamers"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
-        >
-          <h2 className={`mb-1 text-2xl font-semibold`}>
-            Videos{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-        </a>
-
-        <a
-          href="https://discord.gg/3M9SH43d"
+          href="https://discord.gg/f6QjNZu"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
         >
           <h2 className={`mb-1 text-2xl font-semibold`}>
@@ -91,6 +79,19 @@ export default function Home() {
             </span>
           </h2>
         </a>
+
+        <a
+          href="https://www.youtube.com/alaskagamers"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
+        >
+          <h2 className={`mb-1 text-2xl font-semibold`}>
+            YouTube{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+        </a>
+
         {/* <hr className="my-8 border-gray-100 opacity-30" />
         <a
           href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQz3EmwZjw3en822pIzMlbMeo8OC-TqrnVAgt2MIGvxWSkHuaur95R6CHPAg5qmQmOW6qsh24wl7IUk/pubhtml"
