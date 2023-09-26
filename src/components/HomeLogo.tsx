@@ -5,7 +5,7 @@ export default function HomeLogo() {
     <div className="relative mb-8">
       <Image
         className="drop-shadow"
-        src="/akgamers-logo-pngcmyk.png"
+        src="/akgamers-logo_500x175.png"
         alt="AKGamers"
         width={200}
         height={50}
