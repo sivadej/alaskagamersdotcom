@@ -34,7 +34,11 @@ async function fetchBrackets() {
   const createdAfterDate = ninetyDaysAgo.toISOString().slice(0, 10);
 
   const fetchStr = `https://api.challonge.com/v1/tournaments.json?api_key=${apiKey}&state=all&subdomain=akg&created_after=${createdAfterDate}`;
-  const response = await fetch(fetchStr);
+  const response = await fetch(fetchStr, {
+    next: {
+      revalidate: 10,
+    }
+  });
   const data = await response.json();
 
   if (!data || !Array.isArray(data)) return [];
