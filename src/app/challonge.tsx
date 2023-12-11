@@ -35,9 +35,7 @@ async function fetchBrackets() {
 
   const fetchStr = `https://api.challonge.com/v1/tournaments.json?api_key=${apiKey}&state=all&subdomain=akg&created_after=${createdAfterDate}`;
   const response = await fetch(fetchStr, {
-    next: {
-      revalidate: 10,
-    }
+    cache: 'no-store',
   });
   const data = await response.json();
 
