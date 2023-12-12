@@ -64,16 +64,77 @@ export default function Scoreboard() {
     }
   }
 
+  async function incrementScore1() {
+    const oldScore = parseInt(score1 ?? 0);
+    await supabase
+      .from('board')
+      .update({ score1: oldScore + 1 })
+      .eq('id', 1);
+  }
+
+  async function decrementScore1() {
+    const oldScore = parseInt(score1 ?? 0);
+    await supabase
+      .from('board')
+      .update({ score1: oldScore - 1 })
+      .eq('id', 1);
+  }
+
+  async function incrementScore2() {
+    const oldScore = parseInt(score2 ?? 0);
+    await supabase
+      .from('board')
+      .update({ score2: oldScore + 1 })
+      .eq('id', 1);
+  }
+
+  async function decrementScore2() {
+    const oldScore = parseInt(score2 ?? 0);
+    await supabase
+      .from('board')
+      .update({ score2: oldScore - 1 })
+      .eq('id', 1);
+  }
+
   return (
     <div className={styles.body}>
-      <div className='flex h-16 items-center'>
-        <div className='flex-1 text-center text-6xl'>
+      <div className='flex h-24 items-center'>
+        <div className='flex-1 text-center text-3xl'>
           {name1} - {score1}
+          <div>
+            <button
+              className='bg-blue-500 text-white m-2 p-2'
+              onClick={decrementScore1}
+            >
+              -
+            </button>
+            <button
+              className='bg-blue-500 text-white m-2 p-2'
+              onClick={incrementScore1}
+            >
+              +
+            </button>
+          </div>
         </div>
-        <div className='flex-1 text-center text-6xl'>
+        <div className='flex-1 text-center text-3xl'>
           {name2} - {score2}
+          <div>
+            <button
+              className='bg-blue-500 text-white m-2 p-2'
+              onClick={decrementScore2}
+            >
+              -
+            </button>
+            <button
+              className='bg-blue-500 text-white m-2 p-2'
+              onClick={incrementScore2}
+            >
+              +
+            </button>
+          </div>
         </div>
       </div>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 }
