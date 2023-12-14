@@ -74,6 +74,11 @@ export default function Scoreboard() {
           {name2} - {score2}
         </div>
       </div>
+      <button onClick={async () => {
+        await fetch('/api/brackets', {
+          method: 'GET',
+        })
+      }}>asdf</button>
     </div>
   );
 }
