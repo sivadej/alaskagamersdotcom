@@ -37,6 +37,7 @@ export async function GET() {
       id,
       full_challonge_url,
       sign_up_url,
+      url,
     });
   }
   ret.sort((a, b) => b.id - a.id);
