@@ -1,7 +1,7 @@
-import HomeLogo from "@/components/HomeLogo";
 import Link from "next/link";
-import Challonge from './LatestChallonge';
 import { Suspense } from "react";
+import HomeLogo from "./components/HomeLogo";
+import Challonge from './components/LatestChallonge';
 
 import styles from './styles.module.css';
 
@@ -16,41 +16,25 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid text-center gap-2">
-          <Link
-            passHref
-            href="/calendar"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
-          >
-            <h2 className="mb-1 text-2xl font-semibold">
-              Events{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
-            </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-50">
-              Tournaments, meetups, and more.
-            </p>
-          </Link>
+        <a
+          href="https://discord.gg/f6QjNZu"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
+        >
+          <h2 className={`mb-1 text-2xl font-semibold`}>
+            Discord{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              -&gt;
+            </span>
+          </h2>
+        </a>
 
+        <div className="grid text-center gap-2">
           <a
             href="https://twitch.tv/alaskagamers"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
           >
             <h2 className={`mb-1 text-2xl font-semibold`}>
               Stream{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
-            </h2>
-          </a>
-
-          <a
-            href="https://discord.gg/f6QjNZu"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
-          >
-            <h2 className={`mb-1 text-2xl font-semibold`}>
-              Discord{" "}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
               </span>
