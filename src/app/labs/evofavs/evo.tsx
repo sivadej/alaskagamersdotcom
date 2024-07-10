@@ -12,7 +12,6 @@ export default async function StartGGFavs() {
 async function fetchBrackets() {
   const fetchUrl = 'https://api.start.gg/gql/alpha';
   const response = await fetch(fetchUrl, {
-    cache: 'no-store',
     method: 'POST',
     headers: {
       ['content-type']: 'application/json',
@@ -63,9 +62,6 @@ async function fetchBrackets() {
     }),
   });
   const data = await response.json();
-
-  // add a 3 second delay
-  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return data;
 }
