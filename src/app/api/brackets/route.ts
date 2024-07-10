@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 const LIST_LIMIT = 10;
 const apiKey = process.env.CHALLONGE_API_KEY ?? '';
 
-export async function GET() {
+export async function GET(): Promise<any> {
   const today = new Date();
   const ninetyDaysAgo = new Date(today.setDate(today.getDate() - 30));
   const createdAfterDate = ninetyDaysAgo.toISOString().slice(0, 10);
@@ -14,9 +14,10 @@ export async function GET() {
   });
   const data = await response.json();
 
-  if (!data || !Array.isArray(data)) return [];
+  const ret: ResBody['data'] = [];
 
-  const ret = [];
+  if (!data || !Array.isArray(data)) return ret;
+
   for (let i = 0; i < data.length; i++) {
     const { tournament } = data[i] ?? {};
     if (!tournament) break;
@@ -43,4 +44,15 @@ export async function GET() {
   ret.sort((a, b) => b.id - a.id);
 
   return NextResponse.json({ data: ret.slice(0, LIST_LIMIT) });
+}
+
+interface ResBody {
+  data: {
+    name: string;
+    started_at: string;
+    id: number;
+    full_challonge_url: string;
+    sign_up_url: string;
+    url: string;
+  }[];
 }
