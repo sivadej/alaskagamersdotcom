@@ -11,9 +11,10 @@ export default async (req: Request) => {
 
     // insert a row into table 'ping'
     // insert default value into column 'timestamp'
-    const { data, error } = await supabase
+    const res = await supabase
         .from('ping')
-        .insert([{ created_at: new Date() }])
+        .insert([{ created_at: new Date() }]);
+    console.log(JSON.stringify(res));
 }
 
 export const config: Config = {
