@@ -2,6 +2,7 @@ const STARTGG_TOKEN = process.env.STARTGG_TOKEN
 
 export default async function StartGGFavs() {
   const brackets = await fetchBrackets();
+  console.log({brackets});
   return (
     <small>
       <pre>{JSON.stringify(brackets, null, 2)}</pre>
@@ -15,7 +16,7 @@ async function fetchBrackets() {
     method: 'POST',
     headers: {
       ['content-type']: 'application/json',
-      'authorization': `Bearer ${STARTGG_TOKEN}`,
+      ['authorization']: `Bearer ${STARTGG_TOKEN}`,
     },
     body: JSON.stringify({
       query: `query {
