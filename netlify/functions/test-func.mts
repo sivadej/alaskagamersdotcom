@@ -9,12 +9,22 @@ export default async (req: Request) => {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || '';
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // hourly insert of a record to keep supabase free tier active
+    // because i'm cheap lol
+
     // insert a row into table 'ping'
-    // insert default value into column 'timestamp'
     const res = await supabase
         .from('ping')
-        .insert([{ created_at: new Date() }]);
+        .insert([{}]);
     console.log(JSON.stringify(res));
+
+    // purge records from this table that are older than a month
+    const monthAgo = new Date();
+    monthAgo.setMonth(monthAgo.getMonth() - 1);
+    await supabase
+        .from('ping')
+        .delete()
+        .lt('timestamp', monthAgo.toISOString());
 }
 
 export const config: Config = {
