@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import Timeslot from './timeslot';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || '';
@@ -20,28 +21,6 @@ export default async function Schedule() {
       {schedule.map(sch => <Timeslot key={sch.startTimeRaw} {...sch} />)}
     </div>
   );
-}
-
-function Timeslot(timeslot: { startTimeRaw: number; scheduledPlayers: { name: string; game: string; poolId: string; station: string; url: string; }[]; }) {
-  const date = new Date(timeslot.startTimeRaw * 1000);
-  const dayOfWeek = convertDateToDayOfWeek(date);
-  return <div style={{ marginBottom: '2em' }}>
-    <h3>{dayOfWeek} {date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })}</h3>
-    <div>
-      {timeslot.scheduledPlayers.map((sch) => {
-        return (
-          <div key={`${sch.poolId}|${sch.name}`} className="bg-gray-900" style={{ padding: '8px', display: 'flex', border: '1px solid rgba(255,255,255,0.2) ', alignItems: 'center' }}>
-            <div style={{ fontSize: '1.2em' }} className="text-blue-400 flex-none md:w-56 w-32 mr-2">{sch.name}</div>
-            <div style={{ flex: '1' }}>
-              <span className="text-xs md:text-base mr-2">{sch.game}</span>
-            </div>
-            <div style={{ flex: '0 0 50px' }}><small style={{ color: 'rgba(255,255,255,0.5)' }}>Station</small><br />{sch.station}</div>
-            <div style={{ flex: '0 0 60px', textAlign: 'right' }}><a href={sch.url}><small style={{ color: 'rgba(255,255,255,0.5)' }}>Bracket</small><br /><span className="text-blue-400">{sch.poolId}</span></a></div>
-          </div>
-        );
-      })}
-    </div>
-  </div>
 }
 
 async function fetchRawData() {
