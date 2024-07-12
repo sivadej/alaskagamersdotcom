@@ -10,13 +10,9 @@ export default async function EvoDB() {
 
   const players = convertPlayers(playerData);
 
-  const schedule = buildFullSchedule(playerData);
-
   return (
     <small>
       <pre>{JSON.stringify(players, null, 2)}</pre>
-      <hr />
-      <pre>{JSON.stringify(schedule, null, 2)}</pre>
     </small>
   );
 }
@@ -25,52 +21,6 @@ async function fetchRawData() {
   const { data } = await supabase.from('players').select('id,data').neq('id', (new Date()).getTime() * -1);
   console.log(JSON.stringify(data, null, 2));
   return data ?? [];
-}
-
-function buildFullSchedule(rawData: any[]) {
-  const players = convertPlayers(rawData);
-
-  const schedulesByBlock: SchedulesByBlock[] = [];
-  players.forEach(({ schedule, id: playerId, name }) => {
-    schedule.forEach((pool) => {
-      const startTimeRaw = pool.startTimeRaw;
-
-      const block = schedulesByBlock.find((block) => block.startTimeRaw === startTimeRaw);
-      if (block) {
-        block.scheduledPlayer.push({
-          game: pool.game ?? 'err',
-          name: name ?? 'err',
-          poolId: pool.poolId,
-          station: pool.station ?? 'err',
-          url: pool.bracketUrl ?? 'err',
-        });
-      } else {
-        schedulesByBlock.push({
-          startTimeRaw: startTimeRaw ?? 0,
-          scheduledPlayer: [{
-            game: pool.game ?? 'err',
-            name: name ?? 'err',
-            poolId: pool.poolId,
-            station: pool.station ?? 'err',
-            url: pool.bracketUrl ?? 'err',
-          }],
-        });
-      }
-    });
-  });
-
-  return schedulesByBlock;
-}
-
-interface SchedulesByBlock {
-  startTimeRaw: number;
-  scheduledPlayer: {
-    name: string;
-    game: string;
-    poolId: string;
-    station: string;
-    url: string;
-  }[];
 }
 
 function convertPlayers(rawData: any[]) {
@@ -156,6 +106,8 @@ function convertPlayer(participantData: any) {
 
     playerInfo.events.push(event);
   });
+  
+  playerInfo.schedule.sort((a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0));
 
   return playerInfo;
 }

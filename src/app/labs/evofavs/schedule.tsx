@@ -25,13 +25,13 @@ function buildFullSchedule(rawData: any[]) {
   const players = convertPlayers(rawData);
 
   const schedulesByBlock: SchedulesByBlock[] = [];
-  players.forEach(({ schedule, id: playerId, name }) => {
+  players.forEach(({ schedule, name }) => {
     schedule.forEach((pool) => {
       const startTimeRaw = pool.startTimeRaw;
 
       const block = schedulesByBlock.find((block) => block.startTimeRaw === startTimeRaw);
       if (block) {
-        block.scheduledPlayer.push({
+        block.scheduledPlayers.push({
           game: pool.game ?? 'err',
           name: name ?? 'err',
           poolId: pool.poolId,
@@ -42,7 +42,7 @@ function buildFullSchedule(rawData: any[]) {
         schedulesByBlock.push({
           startTimeRaw: startTimeRaw ?? 0,
           startTimeUtc: startTimeRaw ? new Date(startTimeRaw * 1000).toISOString() : null,
-          scheduledPlayer: [{
+          scheduledPlayers: [{
             game: pool.game ?? 'err',
             name: name ?? 'err',
             poolId: pool.poolId,
@@ -57,18 +57,6 @@ function buildFullSchedule(rawData: any[]) {
   schedulesByBlock.sort((a, b) => a.startTimeRaw - b.startTimeRaw);
 
   return schedulesByBlock;
-}
-
-interface SchedulesByBlock {
-  startTimeRaw: number;
-  startTimeUtc: string | null;
-  scheduledPlayer: {
-    name: string;
-    game: string;
-    poolId: string;
-    station: string;
-    url: string;
-  }[];
 }
 
 function convertPlayers(rawData: any[]) {
@@ -155,6 +143,8 @@ function convertPlayer(participantData: any) {
     playerInfo.events.push(event);
   });
 
+  playerInfo.schedule.sort((a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0));
+
   return playerInfo;
 }
 
@@ -209,4 +199,16 @@ interface SetResult {
   fullRoundText: string | null;
   win: boolean | null;
   bracketUrl: string | null;
+}
+
+interface SchedulesByBlock {
+  startTimeRaw: number;
+  startTimeUtc: string | null;
+  scheduledPlayers: {
+    name: string;
+    game: string;
+    poolId: string;
+    station: string;
+    url: string;
+  }[];
 }
