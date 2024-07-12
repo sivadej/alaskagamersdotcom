@@ -1,20 +1,21 @@
 import { Suspense } from "react";
-import EvoDB from "./evodb";
+// import EvoDB from "./evodb";
 import Schedule from "./schedule";
 
 
 export default async function Page() {
   return (
-    <div>
-      <Suspense fallback={<div>loading</div>}>
+    <div style={{ padding: '2em' }}>
+      <Suspense fallback={<div>Loading Player Schedules</div>}>
         <Schedule />
       </Suspense>
-      <Suspense fallback={<div>loading</div>}>
+      {/* <Suspense fallback={<div>loading</div>}>
         <EvoDB />
-      </Suspense>
+      </Suspense> */}
     </div>
   );
 }
 
 // Opt out of caching for all data requests in the route segment
 export const dynamic = 'force-dynamic';
+export const revalidate = 5; // seconds

@@ -9,11 +9,33 @@ export default async function Schedule() {
   const playerData = await fetchRawData();
   const schedule = buildFullSchedule(playerData);
 
+  if (!schedule) return <>Something went wrong. Let Bomby know!</>;
+
   return (
-    <small>
-      <pre>{JSON.stringify(schedule, null, 2)}</pre>
-    </small>
+    <div style={{ maxWidth: 650, margin: 'auto' }}>
+      Scroll to now
+      <h1>Schedule</h1>
+      {schedule.map(sch => <Timeslot key={sch.startTimeRaw} {...sch} />)}
+    </div>
   );
+}
+
+function Timeslot(timeslot: { startTimeRaw: number; scheduledPlayers: { name: string; game: string; poolId: string; station: string; url: string; }[]; }) {
+  return <div style={{ marginBottom: '2em' }}>
+    <h3>{(new Date(timeslot.startTimeRaw * 1000).toLocaleString())}</h3>
+    <div>
+      {timeslot.scheduledPlayers.map((sch) => {
+        return (
+          <div key={sch.poolId} style={{ padding: '8px', display: 'flex', border: '1px solid rgba(255,255,255,0.2)', alignItems: 'center' }}>
+            <div style={{ flex: '0 0 210px', fontSize: '1.5em' }}>{sch.name}</div>
+            <div style={{ flex: '1' }}>{sch.game}</div>
+            <div style={{ flex: '0 0 80px' }}><small style={{ color: 'rgba(255,255,255,0.5)' }}>Station</small><br />{sch.station}</div>
+            <div style={{ flex: '0 0 90px', textAlign: 'right' }}><a href={sch.url}><small style={{ color: 'rgba(255,255,255,0.5)' }}>Pool</small><br />{sch.poolId}</a></div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
 }
 
 async function fetchRawData() {
