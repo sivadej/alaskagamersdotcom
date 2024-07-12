@@ -9,10 +9,12 @@ export default async (req: Request) => {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || '';
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // hourly insert of a record to keep supabase free tier active
+    // regular insert of a record to keep supabase free tier active
     // because i'm cheap lol
 
     // insert a row into table 'ping'
+    // it should default an insert on column 'created_at'
+    // if i just pass an empty object
     const res = await supabase
         .from('ping')
         .insert([{}]);
@@ -24,7 +26,7 @@ export default async (req: Request) => {
     await supabase
         .from('ping')
         .delete()
-        .lt('timestamp', monthAgo.toISOString());
+        .lt('created_at', monthAgo.toISOString());
 }
 
 export const config: Config = {
