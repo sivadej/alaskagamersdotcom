@@ -16,7 +16,7 @@ export default async function Schedule() {
       {/* View All Players */}
       {/* View Schedule */}
       {/* Scroll to now */}
-      <h1>Schedule</h1>
+      <h1 className="text-yellow-400 mb-4 text-xl">Schedule</h1>
       {schedule.map(sch => <Timeslot key={sch.startTimeRaw} {...sch} />)}
     </div>
   );
@@ -26,7 +26,7 @@ function Timeslot(timeslot: { startTimeRaw: number; scheduledPlayers: { name: st
   const date = new Date(timeslot.startTimeRaw * 1000);
   const dayOfWeek = convertDateToDayOfWeek(date);
   return <div style={{ marginBottom: '2em' }}>
-    <h3 className="text-orange-300">{dayOfWeek} {date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })}</h3>
+    <h3>{dayOfWeek} {date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })}</h3>
     <div>
       {timeslot.scheduledPlayers.map((sch) => {
         return (

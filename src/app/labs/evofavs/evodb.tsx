@@ -11,9 +11,37 @@ export default async function EvoDB() {
   const players = convertPlayers(playerData);
 
   return (
-    <small>
-      <pre>{JSON.stringify(players, null, 2)}</pre>
-    </small>
+    <div style={{ maxWidth: 600, margin: 'auto' }}>
+      {players.map((player) => {
+        return (<div key={player.id} className="p-4 mx-auto mb-5 border-2 border-yellow-700 rounded">
+          <h3 className="text-lg text-blue-400">{player.name}</h3>
+          <div>
+            {player.events.map((event) => {
+              return (
+                <div key={event.game} className="mt-4">
+                  <h4 className="font-bold text-gray-300">
+                    {event.game}
+                    <span className="font-normal text-sm ml-2 text-gray-500">Standing: {event.standing}</span>
+                  </h4>
+                  <h3 className="text-gray-200 text-sm">Matches:</h3>
+                  <div className="ml-2">
+                    {event.sets.map((set) => {
+                      return (
+                        <div key={`${set.fullRoundText}|${set.displayScore}`}>
+                          {set.win ? <span className="text-green-400">[W]</span> : <span className="text-red-400">[L]</span>} {set.fullRoundText}: {set.displayScore}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>)
+      })}
+
+      {/* <pre>{JSON.stringify(players, null, 2)}</pre> */}
+    </div>
   );
 }
 
@@ -106,7 +134,7 @@ function convertPlayer(participantData: any) {
 
     playerInfo.events.push(event);
   });
-  
+
   playerInfo.schedule.sort((a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0));
 
   return playerInfo;
