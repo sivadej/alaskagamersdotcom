@@ -12,8 +12,10 @@ export default async function Schedule() {
   if (!schedule) return <>Something went wrong. Let Bomby know!</>;
 
   return (
-    <div style={{ maxWidth: 650, margin: 'auto' }}>
-      Scroll to now
+    <div style={{ minWidth: '350px', maxWidth: '720px', margin: 'auto' }}>
+      {/* View All Players */}
+      {/* View Schedule */}
+      {/* Scroll to now */}
       <h1>Schedule</h1>
       {schedule.map(sch => <Timeslot key={sch.startTimeRaw} {...sch} />)}
     </div>
@@ -21,16 +23,20 @@ export default async function Schedule() {
 }
 
 function Timeslot(timeslot: { startTimeRaw: number; scheduledPlayers: { name: string; game: string; poolId: string; station: string; url: string; }[]; }) {
+  const date = new Date(timeslot.startTimeRaw * 1000);
+  const dayOfWeek = convertDateToDayOfWeek(date);
   return <div style={{ marginBottom: '2em' }}>
-    <h3>{(new Date(timeslot.startTimeRaw * 1000).toLocaleString())}</h3>
+    <h3 className="text-orange-300">{dayOfWeek} {date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })}</h3>
     <div>
       {timeslot.scheduledPlayers.map((sch) => {
         return (
-          <div key={sch.poolId} style={{ padding: '8px', display: 'flex', border: '1px solid rgba(255,255,255,0.2)', alignItems: 'center' }}>
-            <div style={{ flex: '0 0 210px', fontSize: '1.5em' }}>{sch.name}</div>
-            <div style={{ flex: '1' }}>{sch.game}</div>
-            <div style={{ flex: '0 0 80px' }}><small style={{ color: 'rgba(255,255,255,0.5)' }}>Station</small><br />{sch.station}</div>
-            <div style={{ flex: '0 0 90px', textAlign: 'right' }}><a href={sch.url}><small style={{ color: 'rgba(255,255,255,0.5)' }}>Pool</small><br />{sch.poolId}</a></div>
+          <div key={`${sch.poolId}|${sch.name}`} className="bg-gray-900" style={{ padding: '8px', display: 'flex', border: '1px solid rgba(255,255,255,0.2) ', alignItems: 'center' }}>
+            <div style={{ fontSize: '1.2em' }} className="text-blue-400 flex-none md:w-56 w-32 mr-2">{sch.name}</div>
+            <div style={{ flex: '1' }}>
+              <span className="text-xs md:text-base mr-2">{sch.game}</span>
+            </div>
+            <div style={{ flex: '0 0 50px' }}><small style={{ color: 'rgba(255,255,255,0.5)' }}>Station</small><br />{sch.station}</div>
+            <div style={{ flex: '0 0 60px', textAlign: 'right' }}><a href={sch.url}><small style={{ color: 'rgba(255,255,255,0.5)' }}>Bracket</small><br /><span className="text-blue-400">{sch.poolId}</span></a></div>
           </div>
         );
       })}
