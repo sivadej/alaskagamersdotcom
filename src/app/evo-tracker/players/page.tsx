@@ -95,3 +95,6 @@ export default async function PlayersPage() {
     </PageBody>
   );
 }
+
+// Opt out of caching for all data requests in the route segment
+export const dynamic = "force-dynamic"; // this can probably be removed once the final data load is done
