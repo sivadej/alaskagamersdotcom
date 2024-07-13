@@ -10,6 +10,10 @@ export default function PlayerSchedule({
 }: {
   schedule: PoolSchedule[];
 }) {
+  if (!schedule || schedule.length === 0) {
+    return <div className="text-gray-300">No matches scheduled.</div>;
+  }
+
   return (
     <div>
       {schedule.map((timeslot) => {
