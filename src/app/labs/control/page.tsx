@@ -76,7 +76,7 @@ export default function Scoreboard() {
             setName1Input(row.name1 ?? "");
             setName2Input(row.name2 ?? "");
           }
-        }
+        },
       )
       .subscribe();
 
@@ -201,7 +201,7 @@ export default function Scoreboard() {
                 data.map((row) => ({
                   name: row.name,
                   id: row.url,
-                }))
+                })),
               );
             }
           }}

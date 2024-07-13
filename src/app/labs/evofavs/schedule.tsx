@@ -1,8 +1,8 @@
-import { createClient } from '@supabase/supabase-js';
-import Timeslot from './timeslot';
+import { createClient } from "@supabase/supabase-js";
+import Timeslot from "./timeslot";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || '';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || "";
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -13,18 +13,25 @@ export default async function Schedule() {
   if (!schedule) return <>Something went wrong. Let Bomby know!</>;
 
   return (
-    <div style={{ minWidth: '350px', maxWidth: '720px', margin: 'auto' }}>
+    <div style={{ minWidth: "350px", maxWidth: "720px", margin: "auto" }}>
       {/* View All Players */}
       {/* View Schedule */}
       {/* Scroll to now */}
+      {/* Search by name */}
+      {/* Filter by games */}
       <h1 className="text-yellow-400 mb-4 text-xl">Schedule</h1>
-      {schedule.map(sch => <Timeslot key={sch.startTimeRaw} {...sch} />)}
+      {schedule.map((sch) => (
+        <Timeslot key={sch.startTimeRaw} {...sch} />
+      ))}
     </div>
   );
 }
 
 async function fetchRawData() {
-  const { data } = await supabase.from('players').select('id,data').neq('id', (new Date()).getTime() * -1); // cache bustin'
+  const { data } = await supabase
+    .from("players")
+    .select("id,data")
+    .neq("id", new Date().getTime() * -1); // cache bustin'
   return data ?? [];
 }
 
@@ -36,26 +43,32 @@ function buildFullSchedule(rawData: any[]) {
     schedule.forEach((pool) => {
       const startTimeRaw = pool.startTimeRaw;
 
-      const block = schedulesByBlock.find((block) => block.startTimeRaw === startTimeRaw);
+      const block = schedulesByBlock.find(
+        (block) => block.startTimeRaw === startTimeRaw,
+      );
       if (block) {
         block.scheduledPlayers.push({
-          game: pool.game ?? 'err',
-          name: name ?? 'err',
+          game: pool.game ?? "err",
+          name: name ?? "err",
           poolId: pool.poolId,
-          station: pool.station ?? 'err',
-          url: pool.bracketUrl ?? 'err',
+          station: pool.station ?? "err",
+          url: pool.bracketUrl ?? "err",
         });
       } else {
         schedulesByBlock.push({
           startTimeRaw: startTimeRaw ?? 0,
-          startTimeUtc: startTimeRaw ? new Date(startTimeRaw * 1000).toISOString() : null,
-          scheduledPlayers: [{
-            game: pool.game ?? 'err',
-            name: name ?? 'err',
-            poolId: pool.poolId,
-            station: pool.station ?? 'err',
-            url: pool.bracketUrl ?? 'err',
-          }],
+          startTimeUtc: startTimeRaw
+            ? new Date(startTimeRaw * 1000).toISOString()
+            : null,
+          scheduledPlayers: [
+            {
+              game: pool.game ?? "err",
+              name: name ?? "err",
+              poolId: pool.poolId,
+              station: pool.station ?? "err",
+              url: pool.bracketUrl ?? "err",
+            },
+          ],
         });
       }
     });
@@ -110,7 +123,8 @@ function convertPlayer(participantData: any) {
 
       const displayScore = set.displayScore;
       const fullRoundText = set.fullRoundText;
-      const win = set.winnerId === null ? null : set.winnerId === event.entrantId;
+      const win =
+        set.winnerId === null ? null : set.winnerId === event.entrantId;
       const bracketUrl = set.phaseGroup?.bracketUrl ?? null;
 
       const setResult: SetResult = {
@@ -150,7 +164,9 @@ function convertPlayer(participantData: any) {
     playerInfo.events.push(event);
   });
 
-  playerInfo.schedule.sort((a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0));
+  playerInfo.schedule.sort(
+    (a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0),
+  );
 
   return playerInfo;
 }

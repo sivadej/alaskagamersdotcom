@@ -2,7 +2,7 @@
 
 ## About alaskagamers.com
 
-Landing page for our local fighting game community. 
+Landing page for our local fighting game community.
 
 ### Latest Brackets
 

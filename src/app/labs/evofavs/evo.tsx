@@ -1,8 +1,8 @@
-const STARTGG_TOKEN = process.env.STARTGG_TOKEN
+const STARTGG_TOKEN = process.env.STARTGG_TOKEN;
 
 export default async function StartGGFavs() {
   const brackets = await fetchBrackets();
-  console.log({brackets});
+  // console.log({brackets});
   return (
     <small>
       <pre>{JSON.stringify(brackets, null, 2)}</pre>
@@ -11,12 +11,12 @@ export default async function StartGGFavs() {
 }
 
 async function fetchBrackets() {
-  const fetchUrl = 'https://api.start.gg/gql/alpha';
+  const fetchUrl = "https://api.start.gg/gql/alpha";
   const response = await fetch(fetchUrl, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      ['content-type']: 'application/json',
-      ['authorization']: `Bearer ${STARTGG_TOKEN}`,
+      ["content-type"]: "application/json",
+      ["authorization"]: `Bearer ${STARTGG_TOKEN}`,
     },
     body: JSON.stringify({
       query: `query {
@@ -59,7 +59,7 @@ async function fetchBrackets() {
             }
           }
         }
-      }`
+      }`,
     }),
   });
   const data = await response.json();

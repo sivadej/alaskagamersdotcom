@@ -1,29 +1,29 @@
 const LIST_LIMIT = 10;
-const apiKey = process.env.CHALLONGE_API_KEY ?? '';
+const apiKey = process.env.CHALLONGE_API_KEY ?? "";
 
 export default async function Challonge() {
   const brackets = await fetchBrackets();
   return (
-    <div className='group text-center rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30'>
+    <div className="group text-center rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30">
       <h2 className={`mb-1 text-2xl font-semibold`}>Latest Brackets</h2>
-        <p className={`m-0 text-sm opacity-50`}>
-          Retrieved just now from Challonge:
-        </p>
-        <div>
-          {brackets.map((bracket: any) => {
-            const { name, started_at, id, full_challonge_url, sign_up_url } =
-              bracket ?? {};
-            const signUpUrl = sign_up_url && !started_at ? sign_up_url : null;
-            return (
-              <div
-                key={id}
-                className='mt-3 text-blue-300 underline text-lg hover:text-gray-400'
-              >
-                <a href={signUpUrl ?? full_challonge_url}>{name}</a>
-              </div>
-            );
-          })}
-        </div>
+      <p className={`m-0 text-sm opacity-50`}>
+        Retrieved just now from Challonge:
+      </p>
+      <div>
+        {brackets.map((bracket: any) => {
+          const { name, started_at, id, full_challonge_url, sign_up_url } =
+            bracket ?? {};
+          const signUpUrl = sign_up_url && !started_at ? sign_up_url : null;
+          return (
+            <div
+              key={id}
+              className="mt-3 text-blue-300 underline text-lg hover:text-gray-400"
+            >
+              <a href={signUpUrl ?? full_challonge_url}>{name}</a>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -35,7 +35,7 @@ async function fetchBrackets() {
 
   const fetchStr = `https://api.challonge.com/v1/tournaments.json?api_key=${apiKey}&state=all&subdomain=akg&created_after=${createdAfterDate}`;
   const response = await fetch(fetchStr, {
-    cache: 'no-store',
+    cache: "no-store",
   });
   const data = await response.json();
 
