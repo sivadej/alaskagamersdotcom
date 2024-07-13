@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function Timeslot(timeslot: {
   startTimeRaw: number;
   scheduledPlayers: {
@@ -13,8 +15,8 @@ export default function Timeslot(timeslot: {
   const date = new Date(timeslot.startTimeRaw * 1000);
   const dayOfWeek = convertDateToDayOfWeek(date);
   return (
-    <div style={{ marginBottom: "2em" }}>
-      <h3>
+    <div className="mb-4">
+      <h3 className="text-yellow-100 mb-1">
         {dayOfWeek}{" "}
         {date.toLocaleTimeString([], {
           hour: "numeric",
@@ -22,7 +24,12 @@ export default function Timeslot(timeslot: {
           hour12: true,
         })}
       </h3>
-      <div className="divide-y divide-gray-600 border border-gray-600">
+      <div
+        className="divide-y divide-gray-600 border border-gray-600"
+        style={{
+          boxShadow: "0px 0px 4px 2px rgba(120,120,120,0.2)",
+        }}
+      >
         {timeslot.scheduledPlayers.map((sch) => {
           return (
             <div
@@ -31,7 +38,7 @@ export default function Timeslot(timeslot: {
             >
               <div
                 style={{ fontSize: "1.2em" }}
-                className="text-blue-400 flex-none md:w-56 w-32 mr-2"
+                className="flex-none md:w-56 w-32 mr-2"
               >
                 {sch.name}
               </div>
@@ -45,13 +52,28 @@ export default function Timeslot(timeslot: {
                 <br />
                 {sch.station}
               </div>
-              <div style={{ flex: "0 0 60px", textAlign: "right" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flex: "0 0 80px",
+                  textAlign: "right",
+                  justifyContent: "flex-end",
+                }}
+              >
                 <a href={sch.url}>
                   <small style={{ color: "rgba(255,255,255,0.5)" }}>
                     Bracket
                   </small>
-                  <br />
-                  <span className="text-blue-400">{sch.poolId}</span>
+                  <div className="text-blue-400 flex items-center">
+                    {sch.poolId}
+                    <Image
+                      src="/startgg-logo.svg"
+                      className="ml-1"
+                      width={16}
+                      height={16}
+                      alt="Start.gg"
+                    />
+                  </div>
                 </a>
               </div>
             </div>

@@ -1,8 +1,7 @@
 import Image from "next/image";
 import { Suspense } from "react";
-import EvoDB from "./evodb";
-import Schedule from "./schedule";
-import HomeLogo from "@/app/components/HomeLogo";
+import EvoDB from "./components/evodb";
+import Schedule from "./components/schedule";
 
 export default async function Page() {
   return (
