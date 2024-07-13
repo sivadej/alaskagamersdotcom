@@ -5,12 +5,14 @@ export default function Header() {
   return (
     <>
       <div className="flex mx-auto mb-2">
-        <Image
-          src="/akgamers-logo_500x175.png"
-          alt="AKGamers"
-          width={200}
-          height={50}
-        />
+        <a href="/">
+          <Image
+            src="/akgamers-logo_500x175.png"
+            alt="AKGamers"
+            width={200}
+            height={50}
+          />
+        </a>
         <div className="flex-grow"></div>
         <Image src="/evo-logo.svg" alt="evo logo" width={50} height={50} />
       </div>

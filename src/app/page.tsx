@@ -17,7 +17,7 @@ export default function Home() {
         </div>
 
         <a
-          href="#"
+          href="/evo-tracker"
           className="text-blue-300 group rounded-lg border px-5 py-4 border-neutral-700 bg-neutral-800/30 text-center mb-2 animate-pulse"
         >
           <div>
@@ -36,7 +36,7 @@ export default function Home() {
                 -&gt;
               </span>
             </div>
-            <div className="text-sm">Coming Soon</div>
+            <div className="text-sm">Coming Soon - Preview Now</div>
           </h2>
         </a>
 
