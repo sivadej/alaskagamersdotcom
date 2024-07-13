@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 function Timeslot(timeslot: PoolSchedule) {
-  const date = new Date(timeslot.startTimeRaw * 1000);
+  const date = new Date((timeslot?.startTimeRaw ?? 0) * 1000);
   const dayOfWeek = convertDateToDayOfWeek(date);
   return (
     <div className="mb-4">
@@ -47,7 +47,7 @@ function Timeslot(timeslot: PoolSchedule) {
               justifyContent: "flex-end",
             }}
           >
-            <a href={timeslot.bracketUrl}>
+            <a href={timeslot.bracketUrl ?? ""}>
               <small style={{ color: "rgba(255,255,255,0.5)" }}>Bracket</small>
               <div className="text-blue-400 flex items-center">
                 {timeslot.poolId}
