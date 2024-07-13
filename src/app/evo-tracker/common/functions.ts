@@ -1,4 +1,10 @@
-import { PlayerResult, EventResult, SetResult, PoolSchedule } from "./types";
+import {
+  EventResult,
+  PlayerResult,
+  PoolSchedule,
+  SchedulesByBlock,
+  SetResult,
+} from "./types";
 
 export function convertDateToDayOfWeek(dateIn: Date) {
   const dayOfWeek = dateIn.getDay();
@@ -99,8 +105,63 @@ export function convertPlayer(participantData: any) {
   });
 
   playerInfo.schedule.sort(
-    (a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0),
+    (a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0)
   );
 
   return playerInfo;
+}
+
+export function convertPlayers(rawData: any[]) {
+  if (!rawData || !Array.isArray(rawData)) return [];
+  return rawData.map(({ data: dataRaw }) => {
+    const { data } = dataRaw ?? {};
+    const { participant } = data ?? {};
+    return convertPlayer(participant);
+  });
+}
+
+export function buildFullSchedule(rawData: any[]) {
+  const players = convertPlayers(rawData);
+
+  const schedulesByBlock: SchedulesByBlock[] = [];
+  players.forEach(({ schedule, name, id }) => {
+    schedule.forEach((pool) => {
+      const startTimeRaw = pool.startTimeRaw;
+
+      const block = schedulesByBlock.find(
+        (block) => block.startTimeRaw === startTimeRaw
+      );
+      if (block) {
+        block.scheduledPlayers.push({
+          game: pool.game ?? "err",
+          name: name ?? "err",
+          poolId: pool.poolId,
+          station: pool.station ?? "err",
+          url: pool.bracketUrl ?? "err",
+          participantId: id ?? -42069,
+        });
+      } else {
+        schedulesByBlock.push({
+          startTimeRaw: startTimeRaw ?? 0,
+          startTimeUtc: startTimeRaw
+            ? new Date(startTimeRaw * 1000).toISOString()
+            : null,
+          scheduledPlayers: [
+            {
+              game: pool.game ?? "err",
+              name: name ?? "err",
+              poolId: pool.poolId,
+              station: pool.station ?? "err",
+              url: pool.bracketUrl ?? "err",
+              participantId: id ?? -42069,
+            },
+          ],
+        });
+      }
+    });
+  });
+
+  schedulesByBlock.sort((a, b) => a.startTimeRaw - b.startTimeRaw);
+
+  return schedulesByBlock;
 }

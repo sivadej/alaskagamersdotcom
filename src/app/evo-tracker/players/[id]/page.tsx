@@ -1,5 +1,6 @@
-import { getPlayerById } from "../common/fetchData";
+import { getPlayerById } from "../../common/fetchData";
 import PlayerSchedule from "./playerschedule";
+import PageBody from "../../components/pagebody";
 
 export default async function PlayerPage({
   params,
@@ -11,7 +12,7 @@ export default async function PlayerPage({
   if (!player?.id) return <div>Player not found</div>;
 
   return (
-    <div style={{ maxWidth: 600, margin: "auto" }}>
+    <PageBody>
       <div
         key={player.id}
         className="p-4 mx-auto mb-5 border-2 border-yellow-700 rounded"
@@ -48,7 +49,7 @@ export default async function PlayerPage({
         </div>
         <PlayerSchedule schedule={player.schedule} />
       </div>
-    </div>
+    </PageBody>
   );
 }
 
