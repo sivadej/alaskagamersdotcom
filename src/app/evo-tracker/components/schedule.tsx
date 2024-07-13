@@ -39,12 +39,12 @@ function buildFullSchedule(rawData: any[]) {
   const players = convertPlayers(rawData);
 
   const schedulesByBlock: SchedulesByBlock[] = [];
-  players.forEach(({ schedule, name }) => {
+  players.forEach(({ schedule, name, id }) => {
     schedule.forEach((pool) => {
       const startTimeRaw = pool.startTimeRaw;
 
       const block = schedulesByBlock.find(
-        (block) => block.startTimeRaw === startTimeRaw,
+        (block) => block.startTimeRaw === startTimeRaw
       );
       if (block) {
         block.scheduledPlayers.push({
@@ -53,6 +53,7 @@ function buildFullSchedule(rawData: any[]) {
           poolId: pool.poolId,
           station: pool.station ?? "err",
           url: pool.bracketUrl ?? "err",
+          participantId: id ?? -42069,
         });
       } else {
         schedulesByBlock.push({
@@ -67,6 +68,7 @@ function buildFullSchedule(rawData: any[]) {
               poolId: pool.poolId,
               station: pool.station ?? "err",
               url: pool.bracketUrl ?? "err",
+              participantId: id ?? -42069,
             },
           ],
         });
@@ -165,7 +167,7 @@ function convertPlayer(participantData: any) {
   });
 
   playerInfo.schedule.sort(
-    (a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0),
+    (a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0)
   );
 
   return playerInfo;
@@ -233,5 +235,6 @@ interface SchedulesByBlock {
     poolId: string;
     station: string;
     url: string;
+    participantId: number;
   }[];
 }

@@ -1,6 +1,6 @@
 "use client";
-
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Timeslot(timeslot: {
   startTimeRaw: number;
@@ -10,6 +10,7 @@ export default function Timeslot(timeslot: {
     poolId: string;
     station: string;
     url: string;
+    participantId: number;
   }[];
 }) {
   const date = new Date(timeslot.startTimeRaw * 1000);
@@ -40,7 +41,9 @@ export default function Timeslot(timeslot: {
                 style={{ fontSize: "1.2em" }}
                 className="flex-none md:w-56 w-32 mr-2"
               >
-                {sch.name}
+                <Link href={`/evo-tracker/${sch.participantId}`}>
+                  {sch.name}
+                </Link>
               </div>
               <div style={{ flex: "1" }}>
                 <span className="text-xs md:text-base mr-2">{sch.game}</span>

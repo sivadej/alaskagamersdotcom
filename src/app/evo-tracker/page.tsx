@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Suspense } from "react";
-import EvoDB from "./components/evodb";
 import Schedule from "./components/schedule";
 
 export default async function Page() {
@@ -28,9 +27,6 @@ export default async function Page() {
       </div>
       <Suspense fallback={<div>Loading Player Schedules</div>}>
         <Schedule />
-      </Suspense>
-      <Suspense fallback={<div>loading</div>}>
-        <EvoDB />
       </Suspense>
     </div>
   );

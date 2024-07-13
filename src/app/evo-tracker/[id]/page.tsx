@@ -1,78 +1,72 @@
 import { createClient } from "@supabase/supabase-js";
+import PlayerSchedule from "./playerschedule";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || "";
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default async function EvoDB() {
-  const playerData = await fetchRawData();
+export default async function PlayerPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const player = await fetchRawPlayer(params.id);
 
-  const players = convertPlayers(playerData);
+  if (!player?.id) return <div>Player not found</div>;
 
   return (
     <div style={{ maxWidth: 600, margin: "auto" }}>
-      {players.map((player) => {
-        return (
-          <div
-            key={player.id}
-            className="p-4 mx-auto mb-5 border-2 border-yellow-700 rounded"
-          >
-            <h3 className="text-lg text-blue-400">{player.name}</h3>
-            <div>
-              {player.events.map((event) => {
-                return (
-                  <div key={event.game} className="mt-4">
-                    <h4 className="font-bold text-gray-300">
-                      {event.game}
-                      <span className="font-normal text-sm ml-2 text-gray-500">
-                        Standing: {event.standing}
-                      </span>
-                    </h4>
-                    <h3 className="text-gray-200 text-sm">Matches:</h3>
-                    <div className="ml-2">
-                      {event.sets.map((set) => {
-                        return (
-                          <div key={`${set.fullRoundText}|${set.displayScore}`}>
-                            {set.win ? (
-                              <span className="text-green-400">[W]</span>
-                            ) : (
-                              <span className="text-red-400">[L]</span>
-                            )}{" "}
-                            {set.fullRoundText}: {set.displayScore}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
-
-      {/* <pre>{JSON.stringify(players, null, 2)}</pre> */}
+      <div
+        key={player.id}
+        className="p-4 mx-auto mb-5 border-2 border-yellow-700 rounded"
+      >
+        <h3 className="text-lg text-blue-400">{player.name}</h3>
+        <div>
+          {player.events.map((event) => {
+            return (
+              <div key={event.game} className="mt-4">
+                <h4 className="font-bold text-gray-300">
+                  {event.game}
+                  <span className="font-normal text-sm ml-2 text-gray-500">
+                    Standing: {event.standing}
+                  </span>
+                </h4>
+                <h3 className="text-gray-200 text-sm">Matches:</h3>
+                <div className="ml-2">
+                  {event.sets.map((set) => {
+                    return (
+                      <div key={`${set.fullRoundText}|${set.displayScore}`}>
+                        {set.win ? (
+                          <span className="text-green-400">[W]</span>
+                        ) : (
+                          <span className="text-red-400">[L]</span>
+                        )}{" "}
+                        {set.fullRoundText}: {set.displayScore}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <PlayerSchedule schedule={player.schedule} />
+      </div>
     </div>
   );
 }
 
-async function fetchRawData() {
+async function fetchRawPlayer(playerId: string) {
+  if (!playerId) return null;
+
   const { data } = await supabase
     .from("players")
     .select("id,data")
-    .neq("id", new Date().getTime() * -1);
+    .eq("id", playerId);
   // console.log(JSON.stringify(data, null, 2));
-  return data ?? [];
-}
-
-function convertPlayers(rawData: any[]) {
-  if (!rawData || !Array.isArray(rawData)) return [];
-  return rawData.map(({ data: dataRaw }) => {
-    const { data } = dataRaw ?? {};
-    const { participant } = data ?? {};
-    return convertPlayer(participant);
-  });
+  const [player] = data ?? [];
+  return convertPlayer(player.data?.data?.participant);
 }
 
 function convertPlayer(participantData: any) {
@@ -152,7 +146,7 @@ function convertPlayer(participantData: any) {
   });
 
   playerInfo.schedule.sort(
-    (a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0),
+    (a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0)
   );
 
   return playerInfo;
@@ -210,3 +204,6 @@ interface SetResult {
   win: boolean | null;
   bracketUrl: string | null;
 }
+
+// Opt out of caching for all data requests in the route segment
+export const dynamic = "force-dynamic";
