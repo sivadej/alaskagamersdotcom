@@ -1,13 +1,16 @@
-import { createClient } from "@supabase/supabase-js";
 import Timeslot from "./timeslot";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || "";
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { getAllPlayers } from "../common/fetchData";
+import {
+  SchedulesByBlock,
+  PlayerResult,
+  EventResult,
+  SetResult,
+  PoolSchedule,
+} from "../common/types";
+import { convertDateToDayOfWeek } from "../common/functions";
 
 export default async function Schedule() {
-  const playerData = await fetchRawData();
+  const playerData = await getAllPlayers();
   const schedule = buildFullSchedule(playerData);
 
   if (!schedule) return <>Something went wrong. Let Bomby know!</>;
@@ -19,20 +22,12 @@ export default async function Schedule() {
       {/* Scroll to now */}
       {/* Search by name */}
       {/* Filter by games */}
-      <h1 className="text-yellow-400 mb-4 text-xl">Schedule</h1>
+      {/* <h1 className="text-yellow-400 mb-4 text-xl">Schedule</h1> */}
       {schedule.map((sch) => (
         <Timeslot key={sch.startTimeRaw} {...sch} />
       ))}
     </div>
   );
-}
-
-async function fetchRawData() {
-  const { data } = await supabase
-    .from("players")
-    .select("id,data")
-    .neq("id", new Date().getTime() * -1); // cache bustin'
-  return data ?? [];
 }
 
 function buildFullSchedule(rawData: any[]) {
@@ -171,70 +166,4 @@ function convertPlayer(participantData: any) {
   );
 
   return playerInfo;
-}
-
-function convertDateToDayOfWeek(dateIn: Date) {
-  const dayOfWeek = dateIn.getDay();
-  switch (dayOfWeek) {
-    case 0:
-      return "Sunday";
-    case 1:
-      return "Monday";
-    case 2:
-      return "Tuesday";
-    case 3:
-      return "Wednesday";
-    case 4:
-      return "Thursday";
-    case 5:
-      return "Friday";
-    case 6:
-      return "Saturday";
-    default:
-      return "Unknown";
-  }
-}
-
-interface PlayerResult {
-  id: number | null;
-  name: string | null;
-  events: EventResult[];
-  schedule: PoolSchedule[];
-}
-
-interface PoolSchedule {
-  poolId: string;
-  game: string | null;
-  startTimeRaw: number | null;
-  startTimeLocal: string | null;
-  startDayLocal: string | null;
-  bracketUrl: string | null;
-  station: string | null;
-}
-
-interface EventResult {
-  entrantId: number | null;
-  game: string | null;
-  standing: number | null;
-  sets: SetResult[];
-}
-
-interface SetResult {
-  displayScore: string | null;
-  fullRoundText: string | null;
-  win: boolean | null;
-  bracketUrl: string | null;
-}
-
-interface SchedulesByBlock {
-  startTimeRaw: number;
-  startTimeUtc: string | null;
-  scheduledPlayers: {
-    name: string;
-    game: string;
-    poolId: string;
-    station: string;
-    url: string;
-    participantId: number;
-  }[];
 }

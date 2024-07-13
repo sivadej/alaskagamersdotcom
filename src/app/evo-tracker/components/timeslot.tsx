@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -37,25 +38,31 @@ export default function Timeslot(timeslot: {
               key={`${sch.poolId}|${sch.name}`}
               className="bg-gray-900 hover:bg-gray-800 flex p-2 items-center"
             >
-              <div
+              <Link
+                href={`/evo-tracker/${sch.participantId}`}
                 style={{ fontSize: "1.2em" }}
                 className="flex-none md:w-56 w-32 mr-2"
               >
-                <Link href={`/evo-tracker/${sch.participantId}`}>
-                  {sch.name}
-                </Link>
-              </div>
-              <div style={{ flex: "1" }}>
+                {sch.name}
+              </Link>
+              <Link
+                href={`/evo-tracker/${sch.participantId}`}
+                style={{ flex: "1" }}
+              >
                 <span className="text-xs md:text-base mr-2">{sch.game}</span>
-              </div>
-              <div style={{ flex: "0 0 50px" }}>
+              </Link>
+              <Link
+                href={`/evo-tracker/${sch.participantId}`}
+                style={{ flex: "0 0 50px" }}
+              >
                 <small style={{ color: "rgba(255,255,255,0.5)" }}>
                   Station
                 </small>
                 <br />
                 {sch.station}
-              </div>
-              <div
+              </Link>
+              <Link
+                href={sch.url}
                 style={{
                   display: "flex",
                   flex: "0 0 80px",
@@ -63,7 +70,7 @@ export default function Timeslot(timeslot: {
                   justifyContent: "flex-end",
                 }}
               >
-                <a href={sch.url}>
+                <div>
                   <small style={{ color: "rgba(255,255,255,0.5)" }}>
                     Bracket
                   </small>
@@ -77,8 +84,8 @@ export default function Timeslot(timeslot: {
                       alt="Start.gg"
                     />
                   </div>
-                </a>
-              </div>
+                </div>
+              </Link>
             </div>
           );
         })}

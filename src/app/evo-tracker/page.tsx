@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Suspense } from "react";
+import ButtonGroup from "./components/buttongroup";
 import Schedule from "./components/schedule";
 
 export default async function Page() {
@@ -25,6 +26,7 @@ export default async function Page() {
         Preview Mode: Using limited Evo 2023 results until 2024 data becomes
         available.
       </div>
+      <ButtonGroup />
       <Suspense fallback={<div>Loading Player Schedules</div>}>
         <Schedule />
       </Suspense>
