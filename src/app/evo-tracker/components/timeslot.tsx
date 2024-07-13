@@ -80,7 +80,7 @@ export default function Timeslot(timeslot: {
               </Link>
               <Link
                 href={`/evo-tracker/players/${sch.participantId}`}
-                style={{ flex: "1", lineHeight: 0 }}
+                style={{ flex: "1", lineHeight: "1" }}
               >
                 <span className="text-xs md:text-base mr-2">{sch.game}</span>
               </Link>

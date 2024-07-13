@@ -25,5 +25,5 @@ export async function getPlayerById(playerId: string) {
     .eq("id", playerId);
   // console.log(JSON.stringify(data, null, 2));
   const [player] = data ?? [];
-  return convertPlayer(player.data?.data?.participant);
+  return convertPlayer(player?.data?.data?.participant);
 }
