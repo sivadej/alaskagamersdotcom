@@ -98,9 +98,9 @@ export default function Timeslot(timeslot: {
   );
 }
 
-function TimeStatus({ startDate }: { startDate: Date }) {
-  const twoHoursInMs = 2 * 60 * 60 * 1000;
+const TWO_HOURS_IN_MS = 2 * 60 * 60 * 1000;
 
+function TimeStatus({ startDate }: { startDate: Date }) {
   const bracketStartTimeMs = startDate.getTime();
   const nowMs = Date.now();
   const timeDiffMs = bracketStartTimeMs - nowMs;
@@ -114,7 +114,7 @@ function TimeStatus({ startDate }: { startDate: Date }) {
   }
 
   if (timeDiffMs <= 0) {
-    if (Math.abs(timeDiffMs) < twoHoursInMs) {
+    if (Math.abs(timeDiffMs) < TWO_HOURS_IN_MS) {
       return (
         <div className="rounded px-2 animate-pulse text-green-200 font-medium text-xs bg-green-800">
           LIVE

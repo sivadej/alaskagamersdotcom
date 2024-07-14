@@ -1,6 +1,9 @@
 export interface PlayerResult {
   id: number | null;
   name: string | null;
+  fullName: string | null;
+  city: string | null;
+  state: string | null;
   events: EventResult[];
   schedule: PoolSchedule[];
 }

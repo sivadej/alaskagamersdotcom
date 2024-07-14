@@ -32,14 +32,22 @@ export function convertPlayer(participantData: any) {
   const playerInfo: PlayerResult = {
     id: null,
     name: null,
+    fullName: null,
+    city: null,
+    state: null,
     events: [],
     schedule: [],
   };
 
-  const { id, gamerTag } = participantData ?? {};
+  const { id, gamerTag, user } = participantData ?? {};
+  const { name, location } = user ?? {};
+  const { city, state } = location ?? {};
 
   playerInfo.id = id;
   playerInfo.name = gamerTag;
+  playerInfo.fullName = name;
+  playerInfo.city = city;
+  playerInfo.state = state;
 
   const entrants = participantData?.entrants ?? [];
 
