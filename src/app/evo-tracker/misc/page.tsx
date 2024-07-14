@@ -1,18 +1,47 @@
 import PageBody from "../components/pagebody";
+import Image from "next/image";
 
 export default function MiscLinks() {
   return (
     <PageBody>
       <h3 className="text-blue-400 mb-1 text-xl w-full">Links</h3>
       {[
-        { text: "Main Evo Twitch Stream", url: "https://www.twitch.tv/evo" },
-        { text: "Evo Twitch Stream #2", url: "https://www.twitch.tv/evo2" },
-        { text: "Evo Twitch Stream #3", url: "https://www.twitch.tv/evo3" },
-        { text: "Evo Twitch Stream #4", url: "https://www.twitch.tv/evo4" },
-        { text: "Evo Twitch Stream #5", url: "https://www.twitch.tv/evo5" },
-        { text: "Evo Twitch Stream #6", url: "https://www.twitch.tv/evo6" },
-        { text: "Evo Twitch Stream #7", url: "https://www.twitch.tv/evo7" },
-      ].map(({ text, url }) => {
+        {
+          text: "Evo Twitch Stream (Main)",
+          url: "https://www.twitch.tv/evo",
+          icon: "/twitch.svg",
+        },
+        {
+          text: "Evo Twitch Stream #2",
+          url: "https://www.twitch.tv/evo2",
+          icon: "/twitch.svg",
+        },
+        {
+          text: "Evo Twitch Stream #3",
+          url: "https://www.twitch.tv/evo3",
+          icon: "/twitch.svg",
+        },
+        {
+          text: "Evo Twitch Stream #4",
+          url: "https://www.twitch.tv/evo4",
+          icon: "/twitch.svg",
+        },
+        {
+          text: "Evo Twitch Stream #5",
+          url: "https://www.twitch.tv/evo5",
+          icon: "/twitch.svg",
+        },
+        {
+          text: "Evo Twitch Stream #6",
+          url: "https://www.twitch.tv/evo6",
+          icon: "/twitch.svg",
+        },
+        {
+          text: "Evo Twitch Stream #7",
+          url: "https://www.twitch.tv/evo7",
+          icon: "/twitch.svg",
+        },
+      ].map(({ text, url, icon }) => {
         return (
           <a
             key={url}
@@ -20,7 +49,24 @@ export default function MiscLinks() {
             className="bg-gray-900 hover:bg-gray-800 flex p-2 items-center mb-1"
             target="_blank"
           >
+            {icon ? (
+              <Image
+                src={icon}
+                className="mr-2"
+                width={24}
+                height={24}
+                alt={text}
+              />
+            ) : null}
+
             {text}
+            <Image
+              src="/external-link.svg"
+              className="ml-2"
+              width={16}
+              height={16}
+              alt={text}
+            />
           </a>
         );
       })}
@@ -42,6 +88,13 @@ export default function MiscLinks() {
         className="bg-gray-900 hover:bg-gray-800 flex p-2 items-center mb-1 mt-2 text-sm"
         target="_blank"
       >
+        <Image
+          src="/coffee.svg"
+          className="mr-1"
+          width={24}
+          height={24}
+          alt="Buy Me A Coffee"
+        />
         Support the developer! All server and hosting costs for this page are
         out of pocket.
       </a>
