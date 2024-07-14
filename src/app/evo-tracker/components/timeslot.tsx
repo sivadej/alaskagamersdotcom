@@ -2,36 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
-function TimeStatus({ startDate }: { startDate: Date }) {
-  const twoHoursInMs = 2 * 60 * 60 * 1000;
-
-  // if timeMs is within two hours of now, return "LIVE"
-  // if timeMs is in the past, return "ENDED"
-  if (
-    startDate.getTime() > Date.now() &&
-    startDate.getTime() < Date.now() + twoHoursInMs
-  ) {
-    return (
-      <div className="rounded px-2 animate-pulse text-green-200 font-medium text-xs bg-green-800">
-        LIVE
-      </div>
-    );
-  } else if (startDate.getTime() < Date.now()) {
-    return (
-      <div className="rounded px-2 text-gray-200 text-xs bg-gray-900">
-        ENDED
-      </div>
-    );
-  }
-
-  // otherwise return "UPCOMING"
-  return (
-    <div className="rounded px-2 text-white text-xs bg-orange-800">
-      UPCOMING
-    </div>
-  );
-}
+import { convertDateToDayOfWeek } from "../common/functions";
 
 export default function Timeslot(timeslot: {
   startTimeRaw: number;
@@ -127,24 +98,34 @@ export default function Timeslot(timeslot: {
   );
 }
 
-function convertDateToDayOfWeek(dateIn: Date) {
-  const dayOfWeek = dateIn.getDay();
-  switch (dayOfWeek) {
-    case 0:
-      return "Sunday";
-    case 1:
-      return "Monday";
-    case 2:
-      return "Tuesday";
-    case 3:
-      return "Wednesday";
-    case 4:
-      return "Thursday";
-    case 5:
-      return "Friday";
-    case 6:
-      return "Saturday";
-    default:
-      return "Unknown";
+function TimeStatus({ startDate }: { startDate: Date }) {
+  const twoHoursInMs = 2 * 60 * 60 * 1000;
+
+  const bracketStartTimeMs = startDate.getTime();
+  const nowMs = Date.now();
+  const timeDiffMs = bracketStartTimeMs - nowMs;
+
+  if (timeDiffMs > 0) {
+    return (
+      <div className="rounded px-2 text-white text-xs bg-orange-800">
+        UPCOMING
+      </div>
+    );
+  }
+
+  if (timeDiffMs <= 0) {
+    if (Math.abs(timeDiffMs) < twoHoursInMs) {
+      return (
+        <div className="rounded px-2 animate-pulse text-green-200 font-medium text-xs bg-green-800">
+          LIVE
+        </div>
+      );
+    } else {
+      return (
+        <div className="rounded px-2 text-gray-200 text-xs bg-gray-900">
+          ENDED
+        </div>
+      );
+    }
   }
 }

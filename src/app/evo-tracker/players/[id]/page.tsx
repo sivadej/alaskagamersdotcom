@@ -10,11 +10,17 @@ export default async function PlayerPage({
 }) {
   const player = await getPlayerById(params.id);
 
-  if (!player?.id) return <div>Player not found</div>;
+  if (!player?.id) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Player not found.
+      </div>
+    );
+  }
 
   return (
     <PageBody>
-      <h2 className="text-3xl text-blue-400 mb-4">{player.name}</h2>
+      <PlayerName name={player.name} id={player.id} />
 
       <h3 className="text-lg text-orange-300">Schedule</h3>
       <PlayerSchedule schedule={player.schedule} />
@@ -22,6 +28,23 @@ export default async function PlayerPage({
       <h3 className="text-lg text-orange-300 mt-8">Results</h3>
       <PlayerEventResult player={player} />
     </PageBody>
+  );
+}
+
+function PlayerName({ name, id }: any) {
+  return (
+    <h2 className="text-3xl text-blue-400 mb-4 flex">
+      {name}
+      {id === 12580893 ? (
+        <Image
+          src="/blsm.jpg"
+          alt="lul"
+          width={64}
+          height={45}
+          className="ml-2"
+        />
+      ) : null}
+    </h2>
   );
 }
 
