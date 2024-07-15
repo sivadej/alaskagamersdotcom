@@ -38,7 +38,7 @@ export default async function PlayerPage({
 
 function PlayerName({ name, id }: any) {
   return (
-    <h2 className="text-3xl text-blue-400 flex">
+    <h2 className="text-3xl text-blue-400 flex items-center">
       {name}
       {id === 12580893 ? (
         <Image
@@ -48,6 +48,11 @@ function PlayerName({ name, id }: any) {
           height={45}
           className="ml-2"
         />
+      ) : null}
+      {id === 14813498 ? (
+        <span className="text-gray-500 text-xs ml-1">
+          AKG group leader 🐍✂️
+        </span>
       ) : null}
     </h2>
   );

@@ -41,6 +41,14 @@ export default function MiscLinks() {
           url: "https://www.twitch.tv/evo7",
           icon: "/twitch.svg",
         },
+        {
+          text: "Stream Schedule",
+          url: "/evo24/evostreamschedule.jpg",
+        },
+        {
+          text: "Venue Map",
+          url: "/evo24/evovenuemap.jpg",
+        },
       ].map(({ text, url, icon }) => {
         return (
           <a
