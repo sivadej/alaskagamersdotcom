@@ -1,3 +1,4 @@
+import { ParticipantQueryRaw, STARTGG_Participant } from "./startggSchemaTypes";
 import {
   EventResult,
   PlayerResult,
@@ -28,7 +29,7 @@ export function convertDateToDayOfWeek(dateIn: Date) {
   }
 }
 
-export function convertPlayer(participantData: any) {
+export function convertPlayer(participantData: STARTGG_Participant | null) {
   const playerInfo: PlayerResult = {
     id: null,
     name: null,
@@ -39,34 +40,37 @@ export function convertPlayer(participantData: any) {
     schedule: [],
   };
 
+  if (!participantData) return playerInfo;
+
   const { id, gamerTag, user } = participantData ?? {};
   const { name, location } = user ?? {};
   const { city, state } = location ?? {};
 
-  playerInfo.id = id;
-  playerInfo.name = gamerTag;
-  playerInfo.fullName = name;
-  playerInfo.city = city;
-  playerInfo.state = state;
+  playerInfo.id = id ?? -42069;
+  playerInfo.name = gamerTag ?? "ERR";
+  playerInfo.fullName = name ?? "";
+  playerInfo.city = city ?? "";
+  playerInfo.state = state ?? "";
 
   const entrants = participantData?.entrants ?? [];
 
-  entrants.forEach((entrant: any) => {
+  entrants.forEach((entrant) => {
     if (!entrant) return;
 
     const eventName = entrant.event?.name;
     const standing = entrant.standing?.placement;
     const sets = entrant.paginatedSets?.nodes ?? [];
+    const seeds = entrant.seeds ?? [];
 
     const event: EventResult = {
-      game: eventName,
-      standing: standing,
-      entrantId: entrant.entrantId,
+      game: eventName ?? "ERR",
+      standing: standing ?? null,
+      entrantId: entrant.entrantId ?? -42069,
       sets: [],
     };
 
     // build results
-    sets.forEach((set: any) => {
+    sets.forEach((set) => {
       if (!set) return;
 
       const displayScore = set.displayScore;
@@ -76,8 +80,8 @@ export function convertPlayer(participantData: any) {
       const bracketUrl = set.phaseGroup?.bracketUrl ?? null;
 
       const setResult: SetResult = {
-        displayScore: displayScore,
-        fullRoundText: fullRoundText,
+        displayScore: displayScore ?? null,
+        fullRoundText: fullRoundText ?? null,
         win: win,
         bracketUrl: bracketUrl,
       };
@@ -88,19 +92,35 @@ export function convertPlayer(participantData: any) {
     // build schedule. map out each schedule by 'pool'
     const pools = new Map<string, PoolSchedule>();
 
-    sets.forEach((set: any) => {
-      if (!set) return;
+    // sets.forEach((set) => {
+    //   if (!set || !set.phaseGroup?.displayIdentifier) return;
 
-      if (!pools.has(set.phaseGroup.displayIdentifier)) {
-        const startDateTime = new Date(set.startAt * 1000);
-        pools.set(set.phaseGroup.displayIdentifier, {
-          poolId: set.phaseGroup.displayIdentifier,
-          game: eventName,
-          startTimeRaw: set.startAt,
-          startTimeLocal: startDateTime.toLocaleTimeString(), // maybe move this to client for correct timezoning
-          startDayLocal: convertDateToDayOfWeek(startDateTime), // maybe move this to client for correct timezoning
-          bracketUrl: set.phaseGroup.bracketUrl,
-          station: set.phaseGroup.displayIdentifier.slice(1),
+    //   if (!pools.has(set.phaseGroup?.displayIdentifier)) {
+    //     pools.set(set.phaseGroup?.displayIdentifier, {
+    //       poolId: set.phaseGroup?.displayIdentifier,
+    //       game: eventName ?? "ERR",
+    //       startTimeRaw: set.startAt ?? null,
+    //       bracketUrl: set.phaseGroup?.bracketUrl ?? null,
+    //       station: set.phaseGroup?.displayIdentifier.slice(1),
+    //     });
+    //   }
+    // });
+    seeds.forEach((seed) => {
+      const { entrant, id, phase, phaseGroup } = seed ?? {};
+      const { name: bracketPhaseName } = phase ?? {};
+      const {
+        displayIdentifier: poolId,
+        bracketUrl,
+        startAt,
+      } = phaseGroup ?? {};
+
+      if (!!poolId && !pools.has(poolId)) {
+        pools.set(poolId, {
+          bracketUrl: bracketUrl ?? "err",
+          game: `${eventName} ${bracketPhaseName}`,
+          poolId: poolId,
+          startTimeRaw: startAt ?? null,
+          station: poolId.slice(1),
         });
       }
     });
@@ -113,13 +133,13 @@ export function convertPlayer(participantData: any) {
   });
 
   playerInfo.schedule.sort(
-    (a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0)
+    (a, b) => (a.startTimeRaw ?? 0) - (b.startTimeRaw ?? 0),
   );
 
   return playerInfo;
 }
 
-export function convertPlayers(rawData: any[]) {
+export function convertPlayers(rawData: ParticipantQueryRaw[]) {
   if (!rawData || !Array.isArray(rawData)) return [];
   return rawData.map(({ data: dataRaw }) => {
     const { data } = dataRaw ?? {};
@@ -128,7 +148,7 @@ export function convertPlayers(rawData: any[]) {
   });
 }
 
-export function buildFullSchedule(rawData: any[]) {
+export function buildFullSchedule(rawData: ParticipantQueryRaw[]) {
   const players = convertPlayers(rawData);
 
   const schedulesByBlock: SchedulesByBlock[] = [];
@@ -137,7 +157,7 @@ export function buildFullSchedule(rawData: any[]) {
       const startTimeRaw = pool.startTimeRaw;
 
       const block = schedulesByBlock.find(
-        (block) => block.startTimeRaw === startTimeRaw
+        (block) => block.startTimeRaw === startTimeRaw,
       );
       if (block) {
         block.scheduledPlayers.push({

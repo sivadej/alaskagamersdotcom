@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { getAllPlayers } from "../common/fetchData";
 import PageBody from "../components/pagebody";
-import Image from "next/image";
 import PlayerList from "./playerlist";
 
 export default async function PlayersPage() {
@@ -12,16 +10,18 @@ export default async function PlayersPage() {
   const playerList = playerData.map((participantRes) => {
     const { participant } = participantRes?.data?.data;
     return {
-      id: participant.id,
-      name: participant.gamerTag,
-      games: participant.entrants.map((entrant: any) => entrant?.event?.name),
-      url: `https://www.start.gg/tournament/evo-2024/attendee/${participant.id}`,
+      id: participant?.id,
+      name: participant?.gamerTag,
+      games: participant?.entrants
+        ?.filter((entrant) => entrant?.event?.name)
+        .map((entrant) => entrant.event?.name as string),
+      url: `https://www.start.gg/tournament/evo-2024/attendee/${participant?.id}`,
     };
   });
 
   // sort playerList by name A-Z
   const sortedPlayerList = structuredClone(playerList).sort((a, b) =>
-    a.name.localeCompare(b.name)
+    (a.name ?? "").localeCompare(b.name ?? "")
   );
 
   return (

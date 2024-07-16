@@ -12,8 +12,6 @@ export interface PoolSchedule {
   poolId: string;
   game: string | null;
   startTimeRaw: number | null;
-  startTimeLocal: string | null;
-  startDayLocal: string | null;
   bracketUrl: string | null;
   station: string | null;
 }
