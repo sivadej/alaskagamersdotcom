@@ -36,7 +36,6 @@ export default function Home() {
                 -&gt;
               </span>
             </div>
-            <div className="text-sm">Coming Soon - Preview Now</div>
           </h2>
         </a>
 

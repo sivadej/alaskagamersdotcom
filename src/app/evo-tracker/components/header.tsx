@@ -16,9 +16,8 @@ export default function Header() {
         <div className="flex-grow"></div>
         <Image src="/evo-logo.svg" alt="evo logo" width={50} height={50} />
       </div>
-      <div className="bg-yellow-600 p-4 mx-auto mb-5 border-2 border-yellow-700 rounded text-xs md:text-sm text-center">
-        Preview Mode: Using limited Evo 2023 results until 2024 data becomes
-        available.
+      <div className="bg-green-600 p-4 mx-auto mb-5 mt-5 border-2 border-green-700 rounded text-xs md:text-sm text-center">
+        2024 schedules are live. Good luck to all competitors!
       </div>
       <NavButtonGroup />
     </>
