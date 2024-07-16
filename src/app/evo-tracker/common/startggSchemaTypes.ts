@@ -58,6 +58,7 @@ export interface STARTGG_PhaseGroup {
   bracketUrl?: string | null;
   displayIdentifier?: string | null;
   startAt?: number | null;
+  phase?: STARTGG_Phase | null;
 }
 
 export interface STARTGG_Event {

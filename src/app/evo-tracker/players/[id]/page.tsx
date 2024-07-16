@@ -2,6 +2,7 @@ import { getPlayerById } from "../../common/fetchData";
 import PlayerSchedule from "./playerschedule";
 import PageBody from "../../components/pagebody";
 import Image from "next/image";
+import { PlayerResult } from "../../common/types";
 
 export default async function PlayerPage({
   params,
@@ -40,7 +41,7 @@ function PlayerName({ name, id }: any) {
   return (
     <h2 className="text-3xl text-blue-400 flex items-center">
       {name}
-      {id === 12580893 ? (
+      {id === 12580893 || id === 15034822 ? (
         <Image
           src="/blsm.jpg"
           alt="lul"
@@ -58,8 +59,8 @@ function PlayerName({ name, id }: any) {
   );
 }
 
-function PlayerEventResult({ player }: { player: any }) {
-  return player.events.map((event: any) => {
+function PlayerEventResult({ player }: { player: PlayerResult }) {
+  return player.events.map((event) => {
     return (
       <div key={event.game} className="border-gray-100 bg-gray-900 mb-2">
         <div className=" p-2 flex mb-1 bg-gray-800 items-center">
@@ -69,7 +70,7 @@ function PlayerEventResult({ player }: { player: any }) {
           </h3>
         </div>
         <div className="ml-2">
-          {event.sets.map((set: any) => {
+          {event.sets.map((set) => {
             return (
               <div
                 key={`${set.fullRoundText}|${set.displayScore}`}
@@ -90,7 +91,7 @@ function PlayerEventResult({ player }: { player: any }) {
                     </div>
                     <div>{set.displayScore}</div>
                   </div>
-                  <div className="w-48 text-sm text-gray-500 text-right md:block hidden">
+                  <div className="w-68 text-sm text-gray-500 text-right md:block hidden">
                     {set.fullRoundText}
                   </div>
                 </div>

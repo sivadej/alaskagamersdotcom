@@ -74,7 +74,7 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
       if (!set) return;
 
       const displayScore = set.displayScore;
-      const fullRoundText = set.fullRoundText;
+      const fullRoundText = `${set.phaseGroup?.phase?.name}: ${set.fullRoundText}`;
       const win =
         set.winnerId === null ? null : set.winnerId === event.entrantId;
       const bracketUrl = set.phaseGroup?.bracketUrl ?? null;
@@ -92,21 +92,8 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
     // build schedule. map out each schedule by 'pool'
     const pools = new Map<string, PoolSchedule>();
 
-    // sets.forEach((set) => {
-    //   if (!set || !set.phaseGroup?.displayIdentifier) return;
-
-    //   if (!pools.has(set.phaseGroup?.displayIdentifier)) {
-    //     pools.set(set.phaseGroup?.displayIdentifier, {
-    //       poolId: set.phaseGroup?.displayIdentifier,
-    //       game: eventName ?? "ERR",
-    //       startTimeRaw: set.startAt ?? null,
-    //       bracketUrl: set.phaseGroup?.bracketUrl ?? null,
-    //       station: set.phaseGroup?.displayIdentifier.slice(1),
-    //     });
-    //   }
-    // });
     seeds.forEach((seed) => {
-      const { entrant, id, phase, phaseGroup } = seed ?? {};
+      const { phase, phaseGroup } = seed ?? {};
       const { name: bracketPhaseName } = phase ?? {};
       const {
         displayIdentifier: poolId,
@@ -117,7 +104,7 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
       if (!!poolId && !pools.has(poolId)) {
         pools.set(poolId, {
           bracketUrl: bracketUrl ?? "err",
-          game: `${eventName} ${bracketPhaseName}`,
+          game: `${eventName} (${bracketPhaseName})`,
           poolId: poolId,
           startTimeRaw: startAt ?? null,
           station: poolId.slice(1),
