@@ -1,31 +1,31 @@
-import { ParticipantQueryRaw, STARTGG_Participant } from "./startggSchemaTypes";
+import { ParticipantQueryRaw, STARTGG_Participant } from './startggSchemaTypes';
 import {
   EventResult,
   PlayerResult,
   PoolSchedule,
   SchedulesByBlock,
   SetResult,
-} from "./types";
+} from './types';
 
 export function convertDateToDayOfWeek(dateIn: Date) {
   const dayOfWeek = dateIn.getDay();
   switch (dayOfWeek) {
     case 0:
-      return "Sunday";
+      return 'Sunday';
     case 1:
-      return "Monday";
+      return 'Monday';
     case 2:
-      return "Tuesday";
+      return 'Tuesday';
     case 3:
-      return "Wednesday";
+      return 'Wednesday';
     case 4:
-      return "Thursday";
+      return 'Thursday';
     case 5:
-      return "Friday";
+      return 'Friday';
     case 6:
-      return "Saturday";
+      return 'Saturday';
     default:
-      return "Unknown";
+      return 'Unknown';
   }
 }
 
@@ -47,10 +47,10 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
   const { city, state } = location ?? {};
 
   playerInfo.id = id ?? -42069;
-  playerInfo.name = gamerTag ?? "ERR";
-  playerInfo.fullName = name ?? "";
-  playerInfo.city = city ?? "";
-  playerInfo.state = state ?? "";
+  playerInfo.name = gamerTag ?? 'ERR';
+  playerInfo.fullName = name ?? '';
+  playerInfo.city = city ?? '';
+  playerInfo.state = state ?? '';
 
   const entrants = participantData?.entrants ?? [];
 
@@ -63,7 +63,7 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
     const seeds = entrant.seeds ?? [];
 
     const event: EventResult = {
-      game: eventName ?? "ERR",
+      game: eventName ?? 'ERR',
       standing: standing ?? null,
       entrantId: entrant.entrantId ?? -42069,
       sets: [],
@@ -103,11 +103,12 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
 
       if (!!poolId && !pools.has(poolId)) {
         pools.set(poolId, {
-          bracketUrl: bracketUrl ?? "err",
+          bracketUrl: bracketUrl ?? 'err',
           game: `${eventName} (${bracketPhaseName})`,
           poolId: poolId,
           startTimeRaw: startAt ?? null,
           station: poolId.slice(1),
+          advanced: !bracketPhaseName?.toLocaleLowerCase().includes('round 1'),
         });
       }
     });
@@ -148,12 +149,13 @@ export function buildFullSchedule(rawData: ParticipantQueryRaw[]) {
       );
       if (block) {
         block.scheduledPlayers.push({
-          game: pool.game ?? "err",
-          name: name ?? "err",
+          game: pool.game ?? 'err',
+          name: name ?? 'err',
           poolId: pool.poolId,
-          station: pool.station ?? "err",
-          url: pool.bracketUrl ?? "err",
+          station: pool.station ?? 'err',
+          url: pool.bracketUrl ?? 'err',
           participantId: id ?? -42069,
+          advanced: pool.advanced,
         });
       } else {
         schedulesByBlock.push({
@@ -163,12 +165,13 @@ export function buildFullSchedule(rawData: ParticipantQueryRaw[]) {
             : null,
           scheduledPlayers: [
             {
-              game: pool.game ?? "err",
-              name: name ?? "err",
+              game: pool.game ?? 'err',
+              name: name ?? 'err',
               poolId: pool.poolId,
-              station: pool.station ?? "err",
-              url: pool.bracketUrl ?? "err",
+              station: pool.station ?? 'err',
+              url: pool.bracketUrl ?? 'err',
               participantId: id ?? -42069,
+              advanced: pool.advanced,
             },
           ],
         });

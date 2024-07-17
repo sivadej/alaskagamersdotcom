@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import Header from "./header";
+import { ReactNode } from 'react';
+import Header from './header';
 
 export default function PageBody({ children }: { children: ReactNode }) {
   return (

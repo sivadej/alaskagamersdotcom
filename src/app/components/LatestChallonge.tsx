@@ -1,5 +1,5 @@
 const LIST_LIMIT = 10;
-const apiKey = process.env.CHALLONGE_API_KEY ?? "";
+const apiKey = process.env.CHALLONGE_API_KEY ?? '';
 
 export default async function Challonge() {
   const brackets = await fetchBrackets();
@@ -35,7 +35,7 @@ async function fetchBrackets() {
 
   const fetchStr = `https://api.challonge.com/v1/tournaments.json?api_key=${apiKey}&state=all&subdomain=akg&created_after=${createdAfterDate}`;
   const response = await fetch(fetchStr, {
-    cache: "no-store",
+    cache: 'no-store',
   });
   const data = await response.json();
 

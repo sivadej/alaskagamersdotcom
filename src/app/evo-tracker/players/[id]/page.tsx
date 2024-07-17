@@ -1,8 +1,8 @@
-import { getPlayerById } from "../../common/fetchData";
-import PlayerSchedule from "./playerschedule";
-import PageBody from "../../components/pagebody";
-import Image from "next/image";
-import { PlayerResult } from "../../common/types";
+import { getPlayerById } from '../../common/fetchData';
+import PlayerSchedule from './playerschedule';
+import PageBody from '../../components/pagebody';
+import Image from 'next/image';
+import { PlayerResult } from '../../common/types';
 
 export default async function PlayerPage({
   params,
@@ -66,11 +66,17 @@ function PlayerEventResult({ player }: { player: PlayerResult }) {
         <div className=" p-2 flex mb-1 bg-gray-800 items-center">
           <h4 className="text text-gray-200 flex-grow">{event.game}</h4>
           <h3 className="text-gray-400 text-sm">
-            Standing: {event.standing ?? "N/A"}
+            Standing: {event.standing ?? 'N/A'}
           </h3>
         </div>
         <div className="ml-2">
           {event.sets.map((set) => {
+            let indicatorImg = '/gray-dot.svg';
+            if (set.win === true) {
+              indicatorImg = '/green-dot.svg';
+            } else if (set.win === false) {
+              indicatorImg = '/red-dot.svg';
+            }
             return (
               <div
                 key={`${set.fullRoundText}|${set.displayScore}`}
@@ -79,7 +85,7 @@ function PlayerEventResult({ player }: { player: PlayerResult }) {
                 <div className="flex items-center">
                   <div className="w-4 mr-2">
                     <Image
-                      src={set.win ? "/green-dot.svg" : "/red-dot.svg"}
+                      src={indicatorImg}
                       width={10}
                       height={10}
                       alt="W/L"
@@ -89,7 +95,11 @@ function PlayerEventResult({ player }: { player: PlayerResult }) {
                     <div className="text-gray-400 text-xs md:hidden">
                       {set.fullRoundText}
                     </div>
-                    <div>{set.displayScore}</div>
+                    <div>
+                      {set.displayScore || (
+                        <span className="text-gray-400">Unreported</span>
+                      )}
+                    </div>
                   </div>
                   <div className="w-68 text-sm text-gray-500 text-right md:block hidden">
                     {set.fullRoundText}
@@ -105,4 +115,4 @@ function PlayerEventResult({ player }: { player: PlayerResult }) {
 }
 
 // Opt out of caching for all data requests in the route segment
-export const dynamic = "force-dynamic"; // this can probably be removed once the final data load is done
+export const dynamic = 'force-dynamic'; // this can probably be removed once the final data load is done

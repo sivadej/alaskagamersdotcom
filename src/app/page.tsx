@@ -1,10 +1,10 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Suspense } from "react";
-import HomeLogo from "./components/HomeLogo";
-import Challonge from "./components/LatestChallonge";
+import Link from 'next/link';
+import Image from 'next/image';
+import { Suspense } from 'react';
+import HomeLogo from './components/HomeLogo';
+import Challonge from './components/LatestChallonge';
 
-import styles from "./styles.module.css";
+import styles from './styles.module.css';
 
 export default function Home() {
   return (
@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           <h2 className={`mb-1 text-2xl font-semibold`}>
             <div>
-              AKG Evo 2024 Tracker{" "}
+              AKG Evo 2024 Tracker{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
               </span>
@@ -44,7 +44,7 @@ export default function Home() {
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
         >
           <h2 className={`mb-1 text-2xl font-semibold`}>
-            Discord{" "}
+            Discord{' '}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>
@@ -57,7 +57,7 @@ export default function Home() {
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
           >
             <h2 className={`mb-1 text-2xl font-semibold`}>
-              Stream{" "}
+              Stream{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
               </span>
@@ -69,7 +69,7 @@ export default function Home() {
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
           >
             <h2 className={`mb-1 text-2xl font-semibold`}>
-              Facebook{" "}
+              Facebook{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
               </span>
@@ -81,7 +81,7 @@ export default function Home() {
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
           >
             <h2 className={`mb-1 text-2xl font-semibold`}>
-              YouTube{" "}
+              YouTube{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
               </span>
@@ -127,7 +127,7 @@ function GlowyLine() {
   return (
     <div
       className="text-center bg-blue-300 animate-pulse"
-      style={{ height: 18, width: randomWidth, margin: "auto", marginTop: 12 }}
+      style={{ height: 18, width: randomWidth, margin: 'auto', marginTop: 12 }}
     />
   );
 }

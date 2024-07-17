@@ -1,7 +1,7 @@
-import { Suspense } from "react";
-import Header from "./components/header";
-import Schedule from "./components/schedule";
-import PageBody from "./components/pagebody";
+import { Suspense } from 'react';
+import Header from './components/header';
+import Schedule from './components/schedule';
+import PageBody from './components/pagebody';
 
 export default async function Page() {
   return (
@@ -14,4 +14,4 @@ export default async function Page() {
 }
 
 // Opt out of caching for all data requests in the route segment
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';

@@ -1,6 +1,6 @@
-import { getAllPlayers } from "../common/fetchData";
-import PageBody from "../components/pagebody";
-import PlayerList from "./playerlist";
+import { getAllPlayers } from '../common/fetchData';
+import PageBody from '../components/pagebody';
+import PlayerList from './playerlist';
 
 export default async function PlayersPage() {
   const playerData = await getAllPlayers();
@@ -21,7 +21,7 @@ export default async function PlayersPage() {
 
   // sort playerList by name A-Z
   const sortedPlayerList = structuredClone(playerList).sort((a, b) =>
-    (a.name ?? "").localeCompare(b.name ?? "")
+    (a.name ?? '').localeCompare(b.name ?? ''),
   );
 
   return (
@@ -32,4 +32,4 @@ export default async function PlayersPage() {
 }
 
 // Opt out of caching for all data requests in the route segment
-export const dynamic = "force-dynamic"; // this can probably be removed once the final data load is done
+export const dynamic = 'force-dynamic'; // this can probably be removed once the final data load is done

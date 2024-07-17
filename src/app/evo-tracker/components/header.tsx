@@ -1,5 +1,5 @@
-import Image from "next/image";
-import NavButtonGroup from "./nav";
+import Image from 'next/image';
+import NavButtonGroup from './nav';
 
 export default function Header() {
   return (

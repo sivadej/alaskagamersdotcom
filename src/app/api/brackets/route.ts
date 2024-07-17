@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 const LIST_LIMIT = 10;
-const apiKey = process.env.CHALLONGE_API_KEY ?? "";
+const apiKey = process.env.CHALLONGE_API_KEY ?? '';
 
 export async function GET(): Promise<any> {
   const today = new Date();
@@ -10,11 +10,11 @@ export async function GET(): Promise<any> {
 
   const fetchStr = `https://api.challonge.com/v1/tournaments.json?api_key=${apiKey}&state=all&subdomain=akg&created_after=${createdAfterDate}`;
   const response = await fetch(fetchStr, {
-    cache: "no-store",
+    cache: 'no-store',
   });
   const data = await response.json();
 
-  const ret: ResBody["data"] = [];
+  const ret: ResBody['data'] = [];
 
   if (!data || !Array.isArray(data)) return ret;
 

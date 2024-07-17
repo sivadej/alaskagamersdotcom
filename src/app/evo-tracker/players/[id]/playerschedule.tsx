@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { PoolSchedule } from "../../common/types";
-import { convertDateToDayOfWeek } from "../../common/functions";
+import Image from 'next/image';
+import Link from 'next/link';
+import { PoolSchedule } from '../../common/types';
+import { convertDateToDayOfWeek } from '../../common/functions';
 
 export default function PlayerSchedule({
   schedule,
@@ -30,42 +30,45 @@ export default function PlayerSchedule({
 function Timeslot(timeslot: PoolSchedule) {
   const date = new Date((timeslot?.startTimeRaw ?? 0) * 1000);
   const dayOfWeek = convertDateToDayOfWeek(date);
+  const bgClass = timeslot.advanced
+    ? 'bg-indigo-950 hover:bg-indigo-900'
+    : 'bg-gray-900 hover:bg-gray-800';
   return (
     <div className="mb-1">
       <div
         className="divide-y divide-gray-600 border border-gray-600"
         style={{
-          boxShadow: "0px 0px 4px 2px rgba(120,120,120,0.2)",
+          boxShadow: '0px 0px 4px 2px rgba(120,120,120,0.2)',
         }}
       >
-        <div className="bg-gray-900 hover:bg-gray-800 flex p-2 items-center">
+        <div className={`${bgClass} flex p-2 items-center`}>
           <div className="flex-none w-24 md:w-40 mr-2">
             {dayOfWeek}
             <br />
             {date.toLocaleTimeString([], {
-              hour: "numeric",
-              minute: "2-digit",
+              hour: 'numeric',
+              minute: '2-digit',
               hour12: true,
             })}
           </div>
-          <div style={{ flex: "1", lineHeight: "1" }}>
+          <div style={{ flex: '1', lineHeight: '1' }}>
             <span className="mr-4">{timeslot.game}</span>
           </div>
-          <div style={{ flex: "0 0 60px" }}>
-            <small style={{ color: "rgba(255,255,255,0.5)" }}>Station</small>
+          <div style={{ flex: '0 0 60px' }}>
+            <small style={{ color: 'rgba(255,255,255,0.5)' }}>Station</small>
             <br />
             {timeslot.station}
           </div>
           <div
             style={{
-              display: "flex",
-              flex: "0 0 60px",
-              textAlign: "right",
-              justifyContent: "flex-end",
+              display: 'flex',
+              flex: '0 0 60px',
+              textAlign: 'right',
+              justifyContent: 'flex-end',
             }}
           >
-            <a href={timeslot.bracketUrl ?? ""}>
-              <small style={{ color: "rgba(255,255,255,0.5)" }}>Bracket</small>
+            <a href={timeslot.bracketUrl ?? ''}>
+              <small style={{ color: 'rgba(255,255,255,0.5)' }}>Bracket</small>
               <div className="text-blue-400 flex items-center">
                 {timeslot.poolId}
                 <Image

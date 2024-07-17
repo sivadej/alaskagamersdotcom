@@ -11,7 +11,7 @@ export interface ParticipantQueryRes {
 }
 
 export interface STARTGG_Participant {
-  __typename: "Participant";
+  __typename: 'Participant';
   id?: number | null;
   gamerTag?: string | null;
   user?: STARTGG_User | null;
@@ -19,19 +19,19 @@ export interface STARTGG_Participant {
 }
 
 export interface STARTGG_User {
-  __typename: "User";
+  __typename: 'User';
   name?: string | null;
   location?: STARTGG_Address | null;
 }
 
 export interface STARTGG_Address {
-  __typename: "Address";
+  __typename: 'Address';
   city?: string | null;
   state?: string | null;
 }
 
 export interface STARTGG_Entrant {
-  __typename: "Entrant";
+  __typename: 'Entrant';
   entrantId?: number | null;
   seeds?: STARTGG_Seed[] | null;
   event?: STARTGG_Event | null;
@@ -40,7 +40,7 @@ export interface STARTGG_Entrant {
 }
 
 export interface STARTGG_Seed {
-  __typename: "Seed";
+  __typename: 'Seed';
   id?: number | null;
   entrant?: STARTGG_Entrant | null;
   phase?: STARTGG_Phase | null;
@@ -48,12 +48,12 @@ export interface STARTGG_Seed {
 }
 
 export interface STARTGG_Phase {
-  __typename: "Phase";
+  __typename: 'Phase';
   name?: string | null;
 }
 
 export interface STARTGG_PhaseGroup {
-  __typename: "PhaseGroup";
+  __typename: 'PhaseGroup';
   id?: number | null;
   bracketUrl?: string | null;
   displayIdentifier?: string | null;
@@ -62,22 +62,22 @@ export interface STARTGG_PhaseGroup {
 }
 
 export interface STARTGG_Event {
-  __typename: "Event";
+  __typename: 'Event';
   name?: string | null;
 }
 
 export interface STARTGG_Standing {
-  __typename: "Standing";
+  __typename: 'Standing';
   placement?: number | null;
 }
 
 export interface STARTGG_SetConnection {
-  __typename: "SetConnection";
+  __typename: 'SetConnection';
   nodes?: STARTGG_Set[] | null;
 }
 
 export interface STARTGG_Set {
-  __typename: "Set";
+  __typename: 'Set';
   displayScore?: string | null;
   winnerId?: number | null;
   fullRoundText?: string | null;

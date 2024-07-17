@@ -1,6 +1,6 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse, NextRequest } from 'next/server';
 
-const apiKey = process.env.CHALLONGE_API_KEY ?? "";
+const apiKey = process.env.CHALLONGE_API_KEY ?? '';
 
 export const revalidate = 10;
 export async function GET(

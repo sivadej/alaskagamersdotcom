@@ -1,30 +1,21 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { convertDateToDayOfWeek } from "../common/functions";
+import Image from 'next/image';
+import Link from 'next/link';
+import { convertDateToDayOfWeek } from '../common/functions';
+import { SchedulesByBlock } from '../common/types';
 
-export default function Timeslot(timeslot: {
-  startTimeRaw: number;
-  scheduledPlayers: {
-    name: string;
-    game: string;
-    poolId: string;
-    station: string;
-    url: string;
-    participantId: number;
-  }[];
-}) {
+export default function Timeslot(timeslot: SchedulesByBlock) {
   const date = new Date(timeslot.startTimeRaw * 1000);
   const dayOfWeek = convertDateToDayOfWeek(date);
   return (
     <div className="mb-4">
       <div className="flex items-baseline">
         <h3 className="text-yellow-100 mb-1 flex-grow">
-          {dayOfWeek}{" "}
+          {dayOfWeek}{' '}
           {date.toLocaleTimeString([], {
-            hour: "numeric",
-            minute: "2-digit",
+            hour: 'numeric',
+            minute: '2-digit',
             hour12: true,
           })}
         </h3>
@@ -33,33 +24,36 @@ export default function Timeslot(timeslot: {
       <div
         className="divide-y divide-gray-600 border border-gray-600"
         style={{
-          boxShadow: "0px 0px 4px 2px rgba(120,120,120,0.2)",
+          boxShadow: '0px 0px 4px 2px rgba(120,120,120,0.2)',
         }}
       >
         {timeslot.scheduledPlayers.map((sch) => {
+          const bgClass = sch.advanced
+            ? 'bg-indigo-950 hover:bg-indigo-900'
+            : 'bg-gray-900 hover:bg-gray-800';
           return (
             <div
               key={`${sch.poolId}|${sch.name}`}
-              className="bg-gray-900 hover:bg-gray-800 flex p-2 items-center"
+              className={`${bgClass} flex p-2 items-center`}
             >
               <Link
                 href={`/evo-tracker/players/${sch.participantId}`}
-                style={{ fontSize: "1.2em" }}
+                style={{ fontSize: '1.2em' }}
                 className="flex-none md:w-56 w-32 mr-2"
               >
                 {sch.name}
               </Link>
               <Link
                 href={`/evo-tracker/players/${sch.participantId}`}
-                style={{ flex: "1", lineHeight: "1" }}
+                style={{ flex: '1', lineHeight: '1' }}
               >
                 <span className="text-xs md:text-base mr-2">{sch.game}</span>
               </Link>
               <Link
                 href={`/evo-tracker/players/${sch.participantId}`}
-                style={{ flex: "0 0 50px" }}
+                style={{ flex: '0 0 50px' }}
               >
-                <small style={{ color: "rgba(255,255,255,0.5)" }}>
+                <small style={{ color: 'rgba(255,255,255,0.5)' }}>
                   Station
                 </small>
                 <br />
@@ -68,14 +62,14 @@ export default function Timeslot(timeslot: {
               <Link
                 href={sch.url}
                 style={{
-                  display: "flex",
-                  flex: "0 0 80px",
-                  textAlign: "right",
-                  justifyContent: "flex-end",
+                  display: 'flex',
+                  flex: '0 0 80px',
+                  textAlign: 'right',
+                  justifyContent: 'flex-end',
                 }}
               >
                 <div>
-                  <small style={{ color: "rgba(255,255,255,0.5)" }}>
+                  <small style={{ color: 'rgba(255,255,255,0.5)' }}>
                     Bracket
                   </small>
                   <div className="text-blue-400 flex items-center">

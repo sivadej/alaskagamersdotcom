@@ -14,6 +14,7 @@ export interface PoolSchedule {
   startTimeRaw: number | null;
   bracketUrl: string | null;
   station: string | null;
+  advanced: boolean; // anything other than "Round 1"
 }
 
 export interface EventResult {
@@ -40,5 +41,6 @@ export interface SchedulesByBlock {
     station: string;
     url: string;
     participantId: number;
+    advanced: boolean; // anything other than "Round 1"
   }[];
 }
