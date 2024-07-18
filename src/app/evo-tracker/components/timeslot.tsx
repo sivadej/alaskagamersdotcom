@@ -17,6 +17,7 @@ export default function Timeslot(timeslot: SchedulesByBlock) {
             hour: 'numeric',
             minute: '2-digit',
             hour12: true,
+            timeZoneName: 'short',
           })}
         </h3>
         <TimeStatus startDate={date} />

@@ -49,6 +49,7 @@ function Timeslot(timeslot: PoolSchedule) {
               hour: 'numeric',
               minute: '2-digit',
               hour12: true,
+              timeZoneName: 'short',
             })}
           </div>
           <div style={{ flex: '1', lineHeight: '1' }}>

@@ -2,7 +2,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { convertPlayer } from './functions';
-import { ParticipantQueryRaw, ParticipantQueryRes } from './startggSchemaTypes';
+import { ParticipantQueryRaw } from './startggSchemaTypes';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || '';
