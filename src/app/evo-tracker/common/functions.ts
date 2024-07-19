@@ -108,7 +108,9 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
           poolId: poolId,
           startTimeRaw: startAt ?? null,
           station: poolId.slice(1),
-          advanced: !bracketPhaseName?.toLocaleLowerCase().includes('round 1'),
+          advanced:
+            !bracketPhaseName?.toLocaleLowerCase().includes('round 1') &&
+            !bracketPhaseName?.toLocaleLowerCase().includes('bracket'),
         });
       }
     });
