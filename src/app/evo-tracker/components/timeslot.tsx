@@ -95,6 +95,14 @@ export default function Timeslot(timeslot: SchedulesByBlock) {
 
 const TWO_HOURS_IN_MS = 2 * 60 * 60 * 1000;
 
+function getFriendlyTimeRemaining(timeDiff: number) {
+  const timeDiffMinutes = Math.floor(timeDiff / 60000);
+  const hours = Math.floor(timeDiffMinutes / 60);
+  const minutes = timeDiffMinutes % 60;
+
+  return `${hours ? `${hours}h` : ''} ${minutes}m`;
+}
+
 function TimeStatus({ startDate }: { startDate: Date }) {
   const bracketStartTimeMs = startDate.getTime();
   const nowMs = Date.now();
@@ -103,7 +111,7 @@ function TimeStatus({ startDate }: { startDate: Date }) {
   if (timeDiffMs > 0) {
     return (
       <div className="rounded px-2 text-white text-xs bg-orange-800">
-        UPCOMING
+        UPCOMING {getFriendlyTimeRemaining(timeDiffMs)}
       </div>
     );
   }
