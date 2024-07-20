@@ -102,15 +102,14 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
       } = phaseGroup ?? {};
 
       if (!!poolId && !pools.has(poolId)) {
+        const station = poolId.replace(/[^0-9]/g, '');
         pools.set(poolId, {
           bracketUrl: bracketUrl ?? 'err',
           game: `${eventName} (${bracketPhaseName})`,
           poolId: poolId,
           startTimeRaw: startAt ?? null,
-          station: poolId.slice(1),
-          advanced:
-            !bracketPhaseName?.toLocaleLowerCase().includes('round 1') &&
-            !bracketPhaseName?.toLocaleLowerCase().includes('bracket'),
+          station: station,
+          advanced: false,
         });
       }
     });
@@ -184,4 +183,18 @@ export function buildFullSchedule(rawData: ParticipantQueryRaw[]) {
   schedulesByBlock.sort((a, b) => a.startTimeRaw - b.startTimeRaw);
 
   return schedulesByBlock;
+}
+
+export function sortPlayerNames(sched: SchedulesByBlock[]) {
+  const newSchedule = structuredClone(sched);
+
+  newSchedule.forEach((timeslot) => {
+    timeslot.scheduledPlayers.sort(({ name: aName }, { name: bName }) => {
+      if (aName.toLowerCase() < bName.toLowerCase()) return -1;
+      if (aName.toLowerCase() > bName.toLowerCase()) return 1;
+      return 0;
+    });
+  });
+
+  return newSchedule;
 }
