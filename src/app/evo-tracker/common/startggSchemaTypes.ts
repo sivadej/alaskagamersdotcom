@@ -45,6 +45,7 @@ export interface STARTGG_Seed {
   entrant?: STARTGG_Entrant | null;
   phase?: STARTGG_Phase | null;
   phaseGroup?: STARTGG_PhaseGroup | null;
+  progressionSeedId?: number | null;
 }
 
 export interface STARTGG_Phase {

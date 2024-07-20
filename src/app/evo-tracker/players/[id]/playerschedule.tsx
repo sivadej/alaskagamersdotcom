@@ -31,7 +31,7 @@ function Timeslot(timeslot: PoolSchedule) {
   const date = new Date((timeslot?.startTimeRaw ?? 0) * 1000);
   const dayOfWeek = convertDateToDayOfWeek(date);
   const bgClass = timeslot.advanced
-    ? 'bg-indigo-950 hover:bg-indigo-900'
+    ? 'bg-green-950 hover:bg-green-900'
     : 'bg-gray-900 hover:bg-gray-800';
   return (
     <div className="mb-1">

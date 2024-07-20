@@ -93,7 +93,7 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
     const pools = new Map<string, PoolSchedule>();
 
     seeds.forEach((seed) => {
-      const { phase, phaseGroup } = seed ?? {};
+      const { phase, phaseGroup, progressionSeedId } = seed ?? {};
       const { name: bracketPhaseName } = phase ?? {};
       const {
         displayIdentifier: poolId,
@@ -109,7 +109,7 @@ export function convertPlayer(participantData: STARTGG_Participant | null) {
           poolId: poolId,
           startTimeRaw: startAt ?? null,
           station: station,
-          advanced: false,
+          advanced: !!progressionSeedId,
         });
       }
     });
