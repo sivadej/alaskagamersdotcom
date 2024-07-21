@@ -71,23 +71,20 @@ export default async function ResultsPage() {
               {game.game}
             </h4>
           </div>
-          <div className="">
-            <div className="">
-              {game.players.map((player) => (
-                <div
-                  key={player.id}
-                  className="flex items-center border border-gray-700 p-2"
-                >
-                  <div className="flex-1">{player.name}</div>
-                  <div>
-                    {player.placement.toLocaleString('en-US', {
-                      useGrouping: true,
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {game.players.map((player) => (
+            <a
+              key={player.id}
+              className="flex items-center border border-gray-700 hover:bg-gray-700 p-2"
+              href={`/evo-tracker/players/${player.id}`}
+            >
+              <div className="flex-1">{player.name}</div>
+              <div>
+                {player.placement.toLocaleString('en-US', {
+                  useGrouping: true,
+                })}
+              </div>
+            </a>
+          ))}
         </div>
       ))}
     </PageBody>
