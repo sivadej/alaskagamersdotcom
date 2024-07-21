@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import Header from './components/header';
 import Schedule from './components/schedule';
 import PageBody from './components/pagebody';
 

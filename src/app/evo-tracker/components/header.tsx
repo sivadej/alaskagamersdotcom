@@ -17,7 +17,7 @@ export default function Header() {
         <Image src="/evo-logo.svg" alt="evo logo" width={50} height={50} />
       </div>
       <div className="bg-green-600 p-4 mx-auto mb-5 mt-5 border-2 border-green-700 rounded text-xs md:text-sm text-center">
-        2024 schedules are live. Good luck to all competitors!
+        GGs to all competitors!
       </div>
       <NavButtonGroup />
     </>

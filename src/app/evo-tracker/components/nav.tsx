@@ -19,10 +19,16 @@ export default function NavButtonGroup() {
             Players
           </Link>
           <Link
+            href="/evo-tracker/results"
+            className="text-center w-24 px-4 py-2 text-sm font-medium border-l border-t border-b focus:z-10 focus:ring-2 bg-gray-800 border-gray-700 text-white hover:text-white hover:bg-gray-700 focus:ring-blue-500 focus:text-white"
+          >
+            Results
+          </Link>
+          <Link
             href="/evo-tracker/misc"
             className="text-center w-24 px-4 py-2 text-sm font-medium border rounded-e-lg focus:z-10 focus:ring-2 bg-gray-800 border-gray-700 text-white hover:text-white hover:bg-gray-700 focus:ring-blue-500 focus:text-white"
           >
-            Misc
+            Links
           </Link>
         </div>
       </div>

@@ -65,6 +65,7 @@ export interface STARTGG_PhaseGroup {
 export interface STARTGG_Event {
   __typename: 'Event';
   name?: string | null;
+  numEntrants?: number | null;
 }
 
 export interface STARTGG_Standing {
