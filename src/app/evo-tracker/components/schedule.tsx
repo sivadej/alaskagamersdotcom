@@ -33,13 +33,14 @@ export default async function Schedule() {
         ))}
       </Collapse>
 
-      {sortPlayerNames(saturdaySchedule).map((sch) => (
-        <Timeslot key={sch.startTimeRaw} {...sch} />
-      ))}
-
-      {sortPlayerNames(sundaySchedule).map((sch) => (
-        <Timeslot key={sch.startTimeRaw} {...sch} />
-      ))}
+      <Collapse title="Saturday/Sunday Schedule">
+        {sortPlayerNames(saturdaySchedule).map((sch) => (
+          <Timeslot key={sch.startTimeRaw} {...sch} />
+        ))}
+        {sortPlayerNames(sundaySchedule).map((sch) => (
+          <Timeslot key={sch.startTimeRaw} {...sch} />
+        ))}
+      </Collapse>
     </>
   );
 }

@@ -9,7 +9,7 @@ export default function Collapse({
   title: string;
   children: React.ReactNode;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className="mb-4">
@@ -18,11 +18,11 @@ export default function Collapse({
         onClick={() => setIsOpen(!isOpen)}
       >
         <h3 className="text-gray-100 text-sm">
-          {isOpen ? 'Hide' : 'Show'} {title}
+          {title} [{isOpen ? 'Hide' : 'Show'}]
         </h3>
         <div className="text-gray-100 text-sm">{isOpen ? '▲' : '▼'}</div>
       </div>
-      {isOpen && <div className="p-4 bg-gray-800">{children}</div>}
+      {isOpen && <div className="p-1 bg-gray-800 pt-2">{children}</div>}
     </div>
   );
 }

@@ -11,36 +11,36 @@ export default function MiscLinks() {
           url: 'https://www.twitch.tv/evo',
           icon: '/twitch.svg',
         },
-        {
-          text: 'Evo Twitch Stream #2',
-          url: 'https://www.twitch.tv/evo2',
-          icon: '/twitch.svg',
-        },
-        {
-          text: 'Evo Twitch Stream #3',
-          url: 'https://www.twitch.tv/evo3',
-          icon: '/twitch.svg',
-        },
-        {
-          text: 'Evo Twitch Stream #4',
-          url: 'https://www.twitch.tv/evo4',
-          icon: '/twitch.svg',
-        },
-        {
-          text: 'Evo Twitch Stream #5',
-          url: 'https://www.twitch.tv/evo5',
-          icon: '/twitch.svg',
-        },
-        {
-          text: 'Evo Twitch Stream #6',
-          url: 'https://www.twitch.tv/evo6',
-          icon: '/twitch.svg',
-        },
-        {
-          text: 'Evo Twitch Stream #7',
-          url: 'https://www.twitch.tv/evo7',
-          icon: '/twitch.svg',
-        },
+        // {
+        //   text: 'Evo Twitch Stream #2',
+        //   url: 'https://www.twitch.tv/evo2',
+        //   icon: '/twitch.svg',
+        // },
+        // {
+        //   text: 'Evo Twitch Stream #3',
+        //   url: 'https://www.twitch.tv/evo3',
+        //   icon: '/twitch.svg',
+        // },
+        // {
+        //   text: 'Evo Twitch Stream #4',
+        //   url: 'https://www.twitch.tv/evo4',
+        //   icon: '/twitch.svg',
+        // },
+        // {
+        //   text: 'Evo Twitch Stream #5',
+        //   url: 'https://www.twitch.tv/evo5',
+        //   icon: '/twitch.svg',
+        // },
+        // {
+        //   text: 'Evo Twitch Stream #6',
+        //   url: 'https://www.twitch.tv/evo6',
+        //   icon: '/twitch.svg',
+        // },
+        // {
+        //   text: 'Evo Twitch Stream #7',
+        //   url: 'https://www.twitch.tv/evo7',
+        //   icon: '/twitch.svg',
+        // },
         {
           text: 'Stream Schedule',
           url: '/evo24/evostreamschedule.jpg',

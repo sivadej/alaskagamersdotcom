@@ -17,29 +17,6 @@ export default function Home() {
         </div>
 
         <a
-          href="/evo-tracker"
-          className="text-blue-300 group rounded-lg border px-5 py-4 border-neutral-700 bg-neutral-800/30 text-center mb-2 animate-pulse"
-        >
-          <div>
-            <Image
-              src="/evo-logo.svg"
-              alt="evo logo"
-              width={50}
-              height={50}
-              className="drop-shadow mx-auto mb-2"
-            />
-          </div>
-          <h2 className={`mb-1 text-2xl font-semibold`}>
-            <div>
-              AKG Evo 2024 Tracker{' '}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
-            </div>
-          </h2>
-        </a>
-
-        <a
           href="https://discord.gg/f6QjNZu"
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-neutral-700 hover:bg-neutral-800/30"
         >
@@ -88,7 +65,30 @@ export default function Home() {
             </h2>
           </a>
 
-          <hr className="my-8 border-gray-100 opacity-30" />
+          <a
+            href="/evo-tracker/results"
+            className="text-blue-300 group rounded-lg border px-5 py-4 border-neutral-700 bg-indigo-950/30 hover:bg-indigo-800/30 text-center mb-8 mt-8"
+          >
+            <div>
+              <Image
+                src="/evo-logo.svg"
+                alt="evo logo"
+                width={40}
+                height={40}
+                className="drop-shadow mx-auto mb-2"
+              />
+            </div>
+            <h2 className={`mb-1 text-xl font-semibold`}>
+              <div>
+                AKG Evo 2024 Results{' '}
+                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                  -&gt;
+                </span>
+              </div>
+            </h2>
+          </a>
+
+          {/* <hr className="my-8 border-gray-100 opacity-30" /> */}
         </div>
 
         <Suspense fallback={<SkeletonLoader />}>
