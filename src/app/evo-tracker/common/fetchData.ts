@@ -4,6 +4,7 @@ import { convertPlayer } from './functions';
 import { ParticipantQueryRaw } from './startggSchemaTypes';
 
 import staticPlayerData from './staticPlayerData.json';
+import staticPlayerObjects from './staticPlayerObjects.json';
 
 export async function getAllPlayers() {
   return (staticPlayerData as unknown as ParticipantQueryRaw[]) ?? [];
@@ -11,10 +12,10 @@ export async function getAllPlayers() {
 
 export async function getPlayerById(playerId: string) {
   if (!playerId) return null;
-  const player = staticPlayerData.find(
-    (p) => p.id === +playerId,
-  ) as unknown as ParticipantQueryRaw;
-  return convertPlayer(player?.data?.data?.participant);
+  const player = (staticPlayerObjects as Record<string, ParticipantQueryRaw>)[
+    playerId
+  ] as unknown as ParticipantQueryRaw;
+  return convertPlayer(player.data.data.participant);
 }
 
 // import { createClient } from '@supabase/supabase-js';

@@ -1,5 +1,5 @@
 export interface ParticipantQueryRaw {
-  id: string;
+  id: string | number;
   data: ParticipantQueryRes;
 }
 
