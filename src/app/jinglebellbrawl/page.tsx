@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-async function SignUpForm() {
+function SignUpForm() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [message, setMessage] = useState('');
   const [prevValue, setPrevValue] = useState('');
@@ -113,7 +113,7 @@ export default function Page() {
   return (
     <div className="m-auto text-center mt-8">
       <Image
-        src="/events/jbbrawl_v1.png"
+        src="/events/jbbrawl_v2.png"
         alt=""
         width={748}
         height={965}

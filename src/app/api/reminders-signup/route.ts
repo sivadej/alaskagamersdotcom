@@ -6,9 +6,9 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || '';
 const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
-const accountSid = process.env.TWILIO_TEST_ACCOUNT_SID;
-const authToken = process.env.TWILIO_TEST_AUTH_TOKEN;
-const twilioPhoneNumber = process.env.TWILIO_TEST_PHONE_NUMBER;
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
 const twilioClient = twilio(accountSid, authToken);
 
 export async function POST(req: NextRequest) {
