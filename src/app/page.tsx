@@ -66,6 +66,21 @@ export default function Home() {
           </a>
 
           <a
+            href="https://start.gg/jingle-bell-brawl"
+            className="text-green-300 group rounded-lg border px-5 py-4 border-neutral-700 bg-indigo-950/30 hover:bg-indigo-800/30 text-center mb-8 mt-8"
+          >
+            <div>
+              <Image
+                src="/events/smalllogotransparent.png"
+                alt="evo logo"
+                width={160}
+                height={40}
+                className="drop-shadow mx-auto mb-2"
+              />
+            </div>
+          </a>
+
+          <a
             href="/evo-tracker/results"
             className="text-blue-300 group rounded-lg border px-5 py-4 border-neutral-700 bg-indigo-950/30 hover:bg-indigo-800/30 text-center mb-8 mt-8"
           >
