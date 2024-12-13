@@ -78,7 +78,7 @@ function SignUpForm() {
   return (
     <>
       {status === 'SUCCESS' ? (
-        <div>
+        <div className="bg-green-800">
           Thanks! You&apos;ll receive texts about Jingle Bell Brawl and other
           AlaskaGamers events!
         </div>
@@ -112,6 +112,13 @@ function SignUpForm() {
 export default function Page() {
   return (
     <div className="m-auto text-center mt-8">
+      <h1 className="mt-8 mb-12 text-2xl">
+        <span className="bg-green-600 p-4 rounded">
+          <a href="https://start.gg/jingle-bell-brawl">
+            View Schedule & Registration
+          </a>
+        </span>
+      </h1>
       <Image
         src="/events/jbbrawl_v2.png"
         alt=""
@@ -119,8 +126,13 @@ export default function Page() {
         height={965}
         className="inline"
       />
-      <h1 className="mt-8 mb-12 text-2xl">More info coming soon!</h1>
-      {process.env.NODE_ENV === 'development' ? <SignUpForm /> : null}
+      <h1 className="mt-8 mb-12 text-2xl">
+        <span className="bg-green-600 p-4 rounded">
+          <a href="https://start.gg/jingle-bell-brawl">
+            View Schedule & Registration
+          </a>
+        </span>
+      </h1>
 
       <div className="mt-12">
         <a href="/" className="text-blue-500">
